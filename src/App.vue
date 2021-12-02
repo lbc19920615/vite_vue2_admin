@@ -5,7 +5,7 @@
       <el-button @click="destory">destory</el-button>
     </div>
     <div class="page" v-if="page.inited">
-      <dym-form :store-name="storeName">
+      <dym-form :config="page.formConfig">
         <template v-slot:form_afterend="scope">
           {{scope}}
           <el-button @click="submitForm(scope)">提交</el-button>
@@ -17,6 +17,7 @@
 
 <script>
 import DymForm from "@/components/DymForm.vue";
+import {buildFormDep} from "@/hooks/build";
 const STORE_NAME = 'test-vue2';
 
 export default {
@@ -25,18 +26,35 @@ export default {
     DymForm,
   },
   data() {
+
     return {
       page: {
-        inited: true
+        formConfig: {},
+        inited: false
       },
       storeName: STORE_NAME
     }
   },
+  beforeMount() {
+    this.initPage()
+  },
   methods: {
+    async initPage() {
+      const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
+      let formVal = ZY.JSON5.parse(store_vars?.value ?? [])
+      let formDef = buildFormDep(formVal, store_vars.name, {
+        src: 'comformscr2.twig'
+      });
+      this.page.formConfig = formDef.init.def
+      this.page.inited = true
+    },
     async submitForm(scope) {
       let {ctx, partName} = scope;
-      let model = await ctx.getRawData(partName);
-      console.log(model)
+      let [isValid, errors] = await ctx.submit(partName)
+      if (isValid) {
+        let model = await ctx.getRawData(partName);
+        console.log(model)
+      }
     },
     async loadFile() {
       let JSON5 = ZY.JSON5;

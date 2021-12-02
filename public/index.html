@@ -19,7 +19,9 @@
       {% set pathSKey = "'parts." ~ part.name ~ "'" %}
       {% set modelKey = pathKey ~ ".model"  %}
         {% if part.type == 'form' %}
-        <el-form class="z-form http-com-part http-com-part__{{ part.name }}">
+        <el-form class="z-form http-com-part http-com-part__{{ part.name }}"
+                 ref="comformscr2__{{ part.name }}" :model="{{ pathKey }}.model"
+        >
           {{ partStr[part.name] }}
           <slot-com :defs="slotContent" :attrs="{parts}"
                     :binds="{name: '{{ part.name }}', ctx: exportCtx,  partName: '{{ part.name }}', parts, process: '{{ CONFIG.process}}' }"

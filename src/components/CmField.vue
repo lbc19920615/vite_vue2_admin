@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {ref, watch, provide, onBeforeUnmount, reactive, onBeforeMount} from '@vue/composition-api'
+import {ref, watch, provide, onBeforeUnmount, reactive, onBeforeMount, inject} from '@vue/composition-api'
 
 export default {
   name: 'CmField',
@@ -40,6 +40,7 @@ export default {
   },
   setup(props, { emit }) {
 
+    let curFormCon = inject('curFormCon');
     let prop_config = props.prop_config ?? {};
     let isLocked = false;
     // const context = props.context;
@@ -93,9 +94,13 @@ export default {
     }, {
     })
 
+    let cmFieldTpl = curFormCon.fieldMixin(prop_config)
+
     globalThis.CustomDymComponent.register({
       name: widgetUUID,
-      template: '<el-input v-model="value" @input="onInput"></el-input>',
+      mixins: [
+        cmFieldTpl
+      ],
       inject: ['CurCmField'],
       data() {
         return {
