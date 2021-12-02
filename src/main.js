@@ -25,6 +25,11 @@ function buildVueComponentMan() {
       // console.log(this.app)
       this.component(name, ctx)
     }
+    static unRegister(name) {
+      Reflect.deleteProperty( this.app.options.components, name)
+      this.defMap.delete(name)
+      Reflect.deleteProperty(this.components, name)
+    }
     static resolve(str) {
       let components = this.app.options.components
       let comName = ZY.lodash.upperFirst(ZY.lodash.camelCase(str))

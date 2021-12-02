@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="loadFile">加载</el-button>
+<!--    <el-button @click="destory">destory</el-button>-->
     <template v-if="state.comReady">
       <component :is="comName"></component>
     </template>
@@ -18,18 +18,19 @@ import {
   onBeforeMount,
   onUpdated,
   onBeforeUpdate,
-  ref
+  ref, onBeforeUnmount
 } from "@vue/composition-api";
 import {buildFormDep} from "@/hooks/build";
 import {renderForm} from "@/hooks/tpllib";
 import Vue from 'vue/dist/vue.esm'
 
-const STORE_NAME = 'test-vue2';
+const COM_PREFIX = 'dym-form__';
 
 export default defineComponent({
-  name: "CompositionCounter",
+  name: "DymForm",
   props: {
-    title: String
+    title: String,
+    storeName: String
   },
   directives: {
     focus: {
@@ -41,7 +42,8 @@ export default defineComponent({
   setup(props, outerCtx) {
     let ZY_EXT = globalThis.ZY_EXT;
     let JSON5 = ZY.JSON5;
-    let comName = 'hello-world' + ZY.lodash.camelCase(ZY.rid());
+    let comName = COM_PREFIX + ZY.lodash.kebabCase(ZY.rid());
+
 
     // console.log("Props", props, ctx);
     /**
@@ -50,41 +52,6 @@ export default defineComponent({
     const state = reactive({
       comReady: false
     });
-
-
-    /**
-     * Life Cycle Hooks
-     */
-    // onMounted(() => {
-    //   console.log("[LifeCycle] onMounted === mounted");
-    // });
-    //
-    // onBeforeMount(() => {
-    //   console.log("[LifeCycle] onBeforeMount === beforeMount");
-    // });
-    //
-    // onUpdated(() => {
-    //   console.log("[LifeCycle] onUpdated === updated");
-    // });
-    //
-    // onBeforeUpdate(() => {
-    //   console.log("[LifeCycle] onBeforeUpdate === beforeUpdate");
-    // });
-
-
-    async function loadFile() {
-      let obj = await ZY_EXT.fileOpenJSON5();
-      if (obj.data) {
-        try {
-          let cloned = JSON5.parse(JSON5.stringify(obj.data));
-          // console.log(cloned)
-          ZY_EXT.store.setItem(STORE_NAME, cloned)
-        } catch (e) {
-          console.log('loadFile parse err', e)
-        }
-      }
-    }
-
 
     function renderCOM(formCONFIG) {
       let partStr = {};
@@ -141,13 +108,6 @@ export default defineComponent({
             // console.log(obj, rowDef)
             let model = reactive(obj)
 
-            // const modelKey = 'parts.' + part.name + '.model';
-            // const partConfigKey = 'config.parts[' + index + '].def';
-            //
-            // partStr[part.name]  = BASE_renderForm(part.def, modelKey, partConfigKey,
-            //     { part, BASE_PATH: modelKey, CONFIG, partKey: `parts.${part.name}` })
-            //
-            //
             return {
               model
             }
@@ -181,15 +141,6 @@ export default defineComponent({
             }
           })()
 
-
-          // function structuralClone(obj) {
-          //   return new Promise(resolve => {
-          //     const {port1, port2} = new MessageChannel();
-          //     port2.onmessage = ev => resolve(ev.data);
-          //     port1.postMessage(obj);
-          //   });
-          // }
-
           function updateValue(partName = '', pathArr = [], e) {
             let s_path = ZY.getObjPathFromPathArr(pathArr);
             let model = parts[partName].model;
@@ -218,7 +169,7 @@ export default defineComponent({
     }
 
     async function init() {
-      const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
+      const store_vars = await ZY_EXT.store.getItem(props.storeName);
       let formVal = JSON5.parse(store_vars?.value ?? [])
       let formDef = buildFormDep(formVal, store_vars.name, {
         src: 'comformscr2.twig'
@@ -235,11 +186,19 @@ export default defineComponent({
 
     init();
 
+    function destory() {
+      state.comReady = false
+    }
+
+    onBeforeUnmount(() => {
+      globalThis.CustomDymComponent.unRegister(comName);
+    })
+
     return {
       // States
       comName,
+      destory,
       state,
-      loadFile,
       // Methods
     };
   }

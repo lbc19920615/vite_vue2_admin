@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {ref, watch, provide, onBeforeUnmount, reactive} from '@vue/composition-api'
+import {ref, watch, provide, onBeforeUnmount, reactive, onBeforeMount} from '@vue/composition-api'
 
 export default {
   name: 'CmField',
@@ -43,7 +43,8 @@ export default {
     let prop_config = props.prop_config ?? {};
     let isLocked = false;
     // const context = props.context;
-    const uuid = 'cm-field-' + ZY.lodash.camelCase(ZY.rid());
+    const uuid = 'cm-field-' + ZY.cid(10);
+    let widgetUUID = uuid + '__widget__' + ZY.rid(10).toLowerCase()
 
     let state = reactive({
       comReady: false,
@@ -70,7 +71,6 @@ export default {
       return state.value
     }
 
-    let widgetUUID = uuid + '__' + 'test-input-widget'
     let ele = null
     let ret =  {
       register(sel) {
@@ -120,7 +120,13 @@ export default {
       }
     })
 
-    state.comReady = true
+    onBeforeMount(() => {
+      state.comReady = true
+    })
+
+    onBeforeUnmount(() => {
+      globalThis.CustomDymComponent.unRegister(widgetUUID)
+    })
 
     provide('CurCmField', ret);
 
