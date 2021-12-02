@@ -6,12 +6,44 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="twig.min.js"></script>
+
   </head>
   <body>
+  <script id="formTpl" type="text/html">
+    <div class="http-com comformscr2">
+      {% verbatim %}{{ {% endverbatim %} parts {% verbatim %} }} {% endverbatim %}
+      {% for part in CONFIG.parts %}
+      {% set partConfigKey = 'config.parts[' ~ loop.index0 ~ '].def' %}
+      {% set pathKey = "parts." ~ part.name %}
+      {% set pathSKey = "'parts." ~ part.name ~ "'" %}
+      {% set modelKey = pathKey ~ ".model"  %}
+        {% if part.type == 'form' %}
+        <el-form class="z-form http-com-part http-com-part__{{ part.name }}">
+          {{ partStr[part.name] }}
+        </el-form>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </script>
+
+  <script type="module">
+    import * as ZY from 'http://localhost:7002/public/expose/main.js'
+    // eslint-disable-next-line no-undef
+    globalThis.ZY = ZY
+
+    import * as ZY_EXT from 'http://localhost:7002/public/expose/ext.js'
+    // eslint-disable-next-line no-undef
+    globalThis.ZY_EXT = ZY_EXT;
+  </script>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+  <script type="module">
+
+    window.startApp();
+  </script>
   </body>
 </html>
