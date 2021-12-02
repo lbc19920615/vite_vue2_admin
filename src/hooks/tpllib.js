@@ -311,7 +311,7 @@ style="${col_style}"
 
         context.tpl = context.tpl +
           `<${field_tag}
-v-model="${basePath}"
+:model-value="${basePath}"
 label="${key}" prop="${key}" 
 selfpath="${fromPath}"
 form-path="${basePath}"
@@ -324,6 +324,7 @@ type="${p.type}"
 part_key="${append.partKey}"
 :prop_config  =" getUI_CONFIG('${configPath}')"
 :slot-content="slotContent"
+@val-change="updateValue('${append.part.name}', [${pathArrStr.slice(1)}], $event)"
 >
 <template v-slot:cmfield_label_beforeend="">
 <slot-com :defs="slotContent" :attrs="{parts}" 

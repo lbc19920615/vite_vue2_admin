@@ -21,6 +21,9 @@
         {% if part.type == 'form' %}
         <el-form class="z-form http-com-part http-com-part__{{ part.name }}">
           {{ partStr[part.name] }}
+          <slot-com :defs="slotContent" :attrs="{parts}"
+                    :binds="{name: '{{ part.name }}', ctx: exportCtx,  partName: '{{ part.name }}', parts, process: '{{ CONFIG.process}}' }"
+                    name="form_afterend"></slot-com>
         </el-form>
         {% endif %}
       {% endfor %}

@@ -41,7 +41,7 @@ export default defineComponent( {
     }
     // console.log(props.name, slotContents)
     return () => {
-      console.log(slotContents)
+      // console.log(slotContents)
       return h('div', {}, slotContents)
       // return slotContents
     }

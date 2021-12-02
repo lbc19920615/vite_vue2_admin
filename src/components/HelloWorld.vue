@@ -1,26 +1,9 @@
 <template>
   <div>
-    <button @click="loadFile">加载</button>
+    <el-button @click="loadFile">加载</el-button>
     <template v-if="state.comReady">
-      <test-dom></test-dom>
+      <component :is="comName"></component>
     </template>
-<!--    <div>-->
-<!--      <strong>Counter</strong>-->
-<!--      <p>Please Open Console</p>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <button @click="decrease">-</button>&nbsp;-->
-<!--      <span>{{ state.count }}</span>&nbsp;-->
-<!--      <button @click="increase">+</button>-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <div>-->
-<!--      <div>Doubled : {{ state.doubled }}</div>-->
-<!--      <div>Tripled : {{ tripleCount }}</div>-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <div>Another Counter : {{ anotherCounter }}</div>-->
-<!--    <br>-->
   </div>
 </template>
 
@@ -28,6 +11,7 @@
 import {
   defineComponent,
   reactive,
+  toRaw,
   computed,
   watchEffect,
   onMounted,
@@ -54,79 +38,38 @@ export default defineComponent({
       }
     }
   },
-  setup(props, ctx) {
+  setup(props, outerCtx) {
     let ZY_EXT = globalThis.ZY_EXT;
     let JSON5 = ZY.JSON5;
+    let comName = 'hello-world' + ZY.lodash.camelCase(ZY.rid());
 
     // console.log("Props", props, ctx);
     /**
      * Reactive Data, Computed
      */
     const state = reactive({
-      count: 0,
-      doubled: computed(() => state.count * 2),
       comReady: false
     });
 
-    const tripleCount = computed(() => state.count * 3);
-
-    /**
-     * ref. not ref on template
-     */
-    const anotherCounter = ref(0);
-
-    /**
-     * Watcher
-     */
-    watchEffect(() => {
-      if (state.count % 2 === 0) {
-        console.log("[WATCH] Data Updated -> state.count is even.");
-      }
-      if (state.doubled) {
-        console.log(
-            "[WATCH] Another wather -> state.doubled -> ",
-            state.doubled
-        );
-      }
-    });
-
-    watchEffect(() => {
-      if (tripleCount) {
-        console.log("[WATCH] Computed Property Updated -> ", tripleCount.value);
-      }
-    });
-
-    /**
-     * Methods
-     */
-    function increase() {
-      state.count++;
-      anotherCounter.value++;
-    }
-
-    function decrease() {
-      state.count--;
-      anotherCounter.value--;
-    }
 
     /**
      * Life Cycle Hooks
      */
-    onMounted(() => {
-      console.log("[LifeCycle] onMounted === mounted");
-    });
-
-    onBeforeMount(() => {
-      console.log("[LifeCycle] onBeforeMount === beforeMount");
-    });
-
-    onUpdated(() => {
-      console.log("[LifeCycle] onUpdated === updated");
-    });
-
-    onBeforeUpdate(() => {
-      console.log("[LifeCycle] onBeforeUpdate === beforeUpdate");
-    });
+    // onMounted(() => {
+    //   console.log("[LifeCycle] onMounted === mounted");
+    // });
+    //
+    // onBeforeMount(() => {
+    //   console.log("[LifeCycle] onBeforeMount === beforeMount");
+    // });
+    //
+    // onUpdated(() => {
+    //   console.log("[LifeCycle] onUpdated === updated");
+    // });
+    //
+    // onBeforeUpdate(() => {
+    //   console.log("[LifeCycle] onBeforeUpdate === beforeUpdate");
+    // });
 
 
     async function loadFile() {
@@ -161,6 +104,8 @@ export default defineComponent({
       return partStr;
     }
 
+
+
     function configToComponent(config) {
       let compileData = {}
 
@@ -178,13 +123,23 @@ export default defineComponent({
 
       console.log(html)
       return {
-        name: 'test-dom',
+        name: comName,
         template: html,
-        setup(props) {
+        props: {
+          debug: {
+            type: Boolean
+          },
+          modelValue: null,
+          render: null
+        },
+        setup(props, ctx) {
+          let lodash = ZY.lodash;
+
           function initPart(partDef) {
             let rowDef = partDef.def;
-            console.log(rowDef)
-            let model = reactive({})
+            let obj = ZY.formModel.create(rowDef)
+            // console.log(obj, rowDef)
+            let model = reactive(obj)
 
             // const modelKey = 'parts.' + part.name + '.model';
             // const partConfigKey = 'config.parts[' + index + '].def';
@@ -205,25 +160,56 @@ export default defineComponent({
             })
           }
 
-          console.log(parts)
+          // console.log(parts)
 
-          function getUI_CONFIG() {
-            return {}
+          function getUI_CONFIG(path) {
+            return lodash.get({
+              config
+            }, path)
           }
 
           let slotContent = (function() {
             if (props.render) {
               return props.render()
             }
+            console.log(outerCtx)
+            if (outerCtx.slots) {
+              return outerCtx.slots
+            }
             return {
               default: []
             }
           })()
 
+
+          // function structuralClone(obj) {
+          //   return new Promise(resolve => {
+          //     const {port1, port2} = new MessageChannel();
+          //     port2.onmessage = ev => resolve(ev.data);
+          //     port1.postMessage(obj);
+          //   });
+          // }
+
+          function updateValue(partName = '', pathArr = [], e) {
+            let s_path = ZY.getObjPathFromPathArr(pathArr);
+            let model = parts[partName].model;
+            lodash.set(model, s_path, e);
+          }
+
+          let exportCtx = {
+            getRawData(partName, {jsonLib = JSON5} = {}) {
+              let observed =  parts[partName].model
+              console.log(observed)
+              return ZY.structuralClone(observed)
+            }
+          }
+
           let instanse = {
             config,
+            exportCtx,
             parts,
             slotContent,
+            updateValue,
             getUI_CONFIG,
           }
           return instanse
@@ -233,7 +219,7 @@ export default defineComponent({
 
     async function init() {
       const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
-      let formVal = JSON5.parse(store_vars.value)
+      let formVal = JSON5.parse(store_vars?.value ?? [])
       let formDef = buildFormDep(formVal, store_vars.name, {
         src: 'comformscr2.twig'
       });
@@ -241,7 +227,7 @@ export default defineComponent({
       let config = formDef.init.def;
 
       let com = configToComponent(config)
-      Vue.component(com.name, com);
+      globalThis.CustomDymComponent.register(com);
       Vue.nextTick(() => {
         state.comReady = true
       })
@@ -251,13 +237,10 @@ export default defineComponent({
 
     return {
       // States
+      comName,
       state,
-      tripleCount,
       loadFile,
-      anotherCounter,
       // Methods
-      increase,
-      decrease
     };
   }
 });

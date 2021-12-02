@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld msg="Welcome to Your Vue.js App">
+      <template v-slot:form_afterend="scope">
+        {{scope}}
+        <el-button @click="submitForm(scope)">提交</el-button>
+      </template>
+    </HelloWorld>
   </div>
 </template>
 
@@ -11,6 +16,13 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  methods: {
+    async submitForm(scope) {
+      let {ctx, partName} = scope;
+      let model = await ctx.getRawData(partName);
+      console.log(model)
+    }
   }
 }
 </script>
