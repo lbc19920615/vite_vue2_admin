@@ -35,13 +35,6 @@ export default defineComponent({
       default: 'formTpl'
     }
   },
-  directives: {
-    focus: {
-      inserted: function(el) {
-        el.focus();
-      }
-    }
-  },
   setup(props, outerCtx) {
     let ZY_EXT = globalThis.ZY_EXT;
     let JSON5 = ZY.JSON5;
