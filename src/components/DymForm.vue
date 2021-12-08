@@ -11,16 +11,15 @@
 import {
   defineComponent,
   reactive,
-  toRaw,
-  computed,
-  watchEffect,
-  onMounted,
-  onBeforeMount,
-  onUpdated,
-  onBeforeUpdate,
+  // toRaw,
+  // computed,
+  // watchEffect,
+  // onMounted,
+  // onBeforeMount,
+  // onUpdated,
+  // onBeforeUpdate,
   ref, onBeforeUnmount, provide
 } from "@vue/composition-api";
-import {buildFormDep} from "@/hooks/build";
 import Vue from 'vue/dist/vue.esm'
 import {configToComponent} from "@/components/DymForm/index.js";
 
@@ -30,7 +29,11 @@ export default defineComponent({
   name: "DymForm",
   props: {
     title: String,
-    config: Object
+    config: Object,
+    templateId: {
+      type: String,
+      default: 'formTpl'
+    }
   },
   directives: {
     focus: {
@@ -57,9 +60,10 @@ export default defineComponent({
     async function init(config) {
       // console.log(formDef)
       // console.log(configToComponent)
+      let html = document.getElementById(props.templateId)?.innerHTML ?? ''
       let com = configToComponent(comName,
           config,
-          document.getElementById('formTpl').innerHTML,
+          html,
           {
             outerCtx
           }
