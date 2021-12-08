@@ -135,7 +135,7 @@ export function configToComponent(comName, config, tpl, {
         updateValue,
         getUI_CONFIG,
         fieldMixin(propConfig) {
-          console.log(propConfig)
+          // console.log(propConfig)
           if (propConfig.sub_type === 'time') {
             return {
               template: `<el-time-picker
