@@ -1,14 +1,16 @@
 <template>
-  <el-form-item v-if="state.comReady">
-<!--    <el-input v-model="state.value" @input="onInput"></el-input>-->
-<!--    <test-input-widget v-model="state.value" @input="onInput"></test-input-widget>-->
-<!--    {{widgetUUID}}-->
-    <template v-slot:label="">
-      <div>{{getLabel()}}</div>
-    </template>
-    <component :is="widgetUUID"></component>
-    <div class="cm-filed__desc"><div>{{getDesc()}}</div></div>
-  </el-form-item>
+  <div class="cm-field">
+    <el-form-item v-if="state.comReady">
+      <!--    <el-input v-model="state.value" @input="onInput"></el-input>-->
+      <!--    <test-input-widget v-model="state.value" @input="onInput"></test-input-widget>-->
+      <!--    {{widgetUUID}}-->
+      <template v-slot:label="">
+        <div class="cm-filed__label">{{getLabel()}}</div>
+      </template>
+      <component :is="widgetUUID"></component>
+      <div class="cm-filed__desc"><div>{{getDesc()}}</div></div>
+    </el-form-item>
+  </div>
 </template>
 
 <script>
