@@ -3,12 +3,16 @@
 <!--    <el-input v-model="state.value" @input="onInput"></el-input>-->
 <!--    <test-input-widget v-model="state.value" @input="onInput"></test-input-widget>-->
 <!--    {{widgetUUID}}-->
+    <template v-slot:label="">
+      <div>{{getLabel()}}</div>
+    </template>
     <component :is="widgetUUID"></component>
+    <div class="cm-filed__desc"><div>{{getDesc()}}</div></div>
   </el-form-item>
 </template>
 
 <script>
-import {ref, watch, provide, onBeforeUnmount, reactive, onBeforeMount, inject} from '@vue/composition-api'
+import {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch} from '@vue/composition-api'
 
 export default {
   name: 'CmField',
@@ -72,6 +76,14 @@ export default {
       return state.value
     }
 
+    function getLabel() {
+      return ZY.lodash.get(props.prop_config, ['ui', 'label'])
+    }
+
+    function getDesc() {
+      return ZY.lodash.get(props.prop_config, ['ui', 'desc'])
+    }
+
     let ele = null
     let ret =  {
       register(sel) {
@@ -82,6 +94,8 @@ export default {
       onChange,
       initValue,
       widgetUUID,
+      getDesc,
+      getLabel,
       onInput,
     }
 
