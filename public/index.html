@@ -33,6 +33,17 @@
   </script>
 
   <script type="module">
+    const getGlobal = function() {
+      if (typeof self !== 'undefined') { return self; }
+      if (typeof window !== 'undefined') { return window; }
+      if (typeof global !== 'undefined') { return global; }
+      throw new Error('unable to locate global object');
+    };
+    let _global = getGlobal();
+    if (typeof _global.globalThis === 'undefined') {
+      _global.globalThis = _global;
+    }
+
     import * as ZY from 'http://localhost:7002/public/expose/main.js'
     // eslint-disable-next-line no-undef
     globalThis.ZY = ZY
