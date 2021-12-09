@@ -33,7 +33,8 @@ export default defineComponent({
     templateId: {
       type: String,
       default: 'formTpl'
-    }
+    },
+    debug: Boolean
   },
   setup(props, outerCtx) {
     let ZY_EXT = globalThis.ZY_EXT;
@@ -53,7 +54,11 @@ export default defineComponent({
     async function init(config) {
       // console.log(formDef)
       // console.log(configToComponent)
-      let html = document.getElementById(props.templateId)?.innerHTML ?? ''
+      let html = document.getElementById(props.templateId)?.innerHTML ?? '';
+      if (props.debug) {
+        config.debug = true
+      }
+      // console.log(config)
       let com = configToComponent(comName,
           config,
           html,

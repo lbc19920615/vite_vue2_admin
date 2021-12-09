@@ -40,9 +40,6 @@ export function configToComponent(comName, config, tpl, {
     name: comName,
     template: html,
     props: {
-      debug: {
-        type: Boolean
-      },
       modelValue: null,
       render: null
     },
@@ -89,7 +86,7 @@ export function configToComponent(comName, config, tpl, {
         if (props.render) {
           return props.render()
         }
-        console.log(outerCtx)
+        // console.log(outerCtx)
         if (outerCtx.slots) {
           return outerCtx.slots
         }

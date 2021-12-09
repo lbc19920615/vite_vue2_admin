@@ -5,25 +5,21 @@
 <!--      <el-button @click="destory">destory</el-button>-->
 <!--    </div>-->
     <div class="page" v-if="page.inited">
-      <dym-form :config="page.formConfig">
-        <template v-slot:form_afterend="scope">
-<!--          {{scope}}-->
-          <el-button type="primary" @click="submitForm(scope)">提交</el-button>
-        </template>
-      </dym-form>
+      <form-a  :config="page.formConfig" @submit-form="onSubmitForm"></form-a>
     </div>
   </div>
 </template>
 
 <script>
-import DymForm from "@/zform/DymForm.vue";
-import {buildFormDep} from "@/zform/hooks/build";
+import FormA from "@/components/form-a.vue";
 const STORE_NAME = 'test-vue2';
 
 export default {
   name: 'App',
   components: {
-    DymForm,
+    FormA
+
+
   },
   data() {
 
@@ -41,14 +37,11 @@ export default {
   methods: {
     async initPage() {
       const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
-      let formVal = ZY.JSON5.parse(store_vars?.value ?? [])
-      let formDef = buildFormDep(formVal, store_vars.name, {
-        src: 'comformscr2.twig'
-      });
-      this.page.formConfig = formDef.init.def
+
+      this.page.formConfig = store_vars?.value ?? []
       this.page.inited = true
     },
-    async submitForm(scope) {
+    async onSubmitForm({scope}) {
       let {ctx, partName} = scope;
       let [isValid, errors] = await ctx.submit(partName)
       if (isValid) {
