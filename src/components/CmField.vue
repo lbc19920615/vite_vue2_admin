@@ -1,10 +1,10 @@
 <template>
-  <div class="cm-field">
-    <el-form-item v-if="state.comReady">
+  <div class="cm-field" :class="['cm-field__'+prop]">
+    <el-form-item   v-bind="ui ? ui.form_item : {}" v-if="state.comReady">
       <!--    <el-input v-model="state.value" @input="onInput"></el-input>-->
       <!--    <test-input-widget v-model="state.value" @input="onInput"></test-input-widget>-->
       <!--    {{widgetUUID}}-->
-      <template v-slot:label="">
+      <template v-if="showLabel(ui)" v-slot:label="">
         <div class="cm-filed__label">{{getLabel()}}</div>
       </template>
       <component :is="widgetUUID"></component>
@@ -53,9 +53,11 @@ export default {
     const uuid = 'cm-field-' + ZY.cid(10);
     let widgetUUID = uuid + '__widget__' + ZY.rid(10).toLowerCase()
 
+    let lodash = ZY.lodash;
     let state = reactive({
       comReady: false,
-      value: props.modelValue ?? null
+      value: props.modelValue ?? null,
+
     })
 
     // console.log(lock)
@@ -79,11 +81,19 @@ export default {
     }
 
     function getLabel() {
-      return ZY.lodash.get(props.prop_config, ['ui', 'label'])
+      return lodash.get(props.prop_config, ['ui', 'label'])
     }
 
     function getDesc() {
-      return ZY.lodash.get(props.prop_config, ['ui', 'desc'])
+      return lodash.get(props.prop_config, ['ui', 'desc'])
+    }
+
+
+    function showLabel() {
+      if (props.ui && props.ui.hiddenLabel) {
+        return false;
+      }
+      return true;
     }
 
     let ele = null
@@ -96,6 +106,7 @@ export default {
       onChange,
       initValue,
       widgetUUID,
+      showLabel,
       getDesc,
       getLabel,
       onInput,

@@ -21,6 +21,7 @@
         {% if part.type == 'form' %}
         <el-form class="z-form http-com-part http-com-part__{{ part.name }}"
                  ref="comformscr2__{{ part.name }}" :model="{{ pathKey }}.model"
+                 {% for KeyValue in part.def.ui.attrs %} {{ KeyValue[0] }}="{{ KeyValue[1] }}"{% endfor %}
         >
           {{ partStr[part.name] }}
           <slot-com :defs="slotContent" :attrs="{parts}"

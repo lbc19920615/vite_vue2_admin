@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dym-form">
 <!--    <el-button @click="destory">destory</el-button>-->
     <template v-if="state.comReady">
       <component :is="comName"></component>

@@ -35,7 +35,7 @@ export function configToComponent(comName, config, tpl, {
   });
   let html = t.render(compileData)
 
-  console.log(html)
+  // console.log(html)
   return {
     name: comName,
     template: html,
