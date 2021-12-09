@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div>
-      <el-button @click="loadFile">加载</el-button>
-      <el-button @click="destory">destory</el-button>
-    </div>
+<!--    <div>-->
+<!--      <el-button @click="loadFile">加载</el-button>-->
+<!--      <el-button @click="destory">destory</el-button>-->
+<!--    </div>-->
     <div class="page" v-if="page.inited">
       <dym-form :config="page.formConfig">
         <template v-slot:form_afterend="scope">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import DymForm from "@/components/DymForm.vue";
+import DymForm from "@/zform/DymForm.vue";
 import {buildFormDep} from "@/hooks/build";
 const STORE_NAME = 'test-vue2';
 
@@ -81,8 +81,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

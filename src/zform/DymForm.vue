@@ -21,7 +21,7 @@ import {
   ref, onBeforeUnmount, provide
 } from "@vue/composition-api";
 import Vue from 'vue/dist/vue.esm'
-import {configToComponent} from "@/components/DymForm/index.js";
+import {configToComponent} from "./DymFormHooks";
 
 const COM_PREFIX = 'dym-form__';
 
