@@ -1,6 +1,6 @@
 <script>
 import {defineComponent, provide, h} from "@vue/composition-api";
-import { createRefManager } from "@/hooks/ref";
+import { createRefManager } from "./hooks/ref";
 
 export default defineComponent( {
   name: 'SlotCom',

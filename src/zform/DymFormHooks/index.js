@@ -1,5 +1,5 @@
 import {provide, reactive, getCurrentInstance} from "@vue/composition-api";
-import {renderForm} from "@/hooks/tpllib";
+import {renderForm} from "../hooks/tpllib";
 
 function renderCOM(formCONFIG) {
   let partStr = {};

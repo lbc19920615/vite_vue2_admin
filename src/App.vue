@@ -7,8 +7,8 @@
     <div class="page" v-if="page.inited">
       <dym-form :config="page.formConfig">
         <template v-slot:form_afterend="scope">
-          {{scope}}
-          <el-button @click="submitForm(scope)">提交</el-button>
+<!--          {{scope}}-->
+          <el-button type="primary" @click="submitForm(scope)">提交</el-button>
         </template>
       </dym-form>
     </div>
@@ -17,7 +17,7 @@
 
 <script>
 import DymForm from "@/zform/DymForm.vue";
-import {buildFormDep} from "@/hooks/build";
+import {buildFormDep} from "@/zform/hooks/build";
 const STORE_NAME = 'test-vue2';
 
 export default {
