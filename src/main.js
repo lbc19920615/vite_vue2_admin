@@ -13,6 +13,26 @@ globalThis.Vue = Vue
 import {initZForm} from "@/zform/main";
 Vue.use(initZForm)
 
+import {defZFormFieldCom} from "@/zform/DymFormHooks";
+defZFormFieldCom('CusTimePicker', {
+  create(propConfig) {
+    console.log(propConfig)
+    return {
+      template: `<el-time-picker
+          v-model="value"
+          @change="onInput"
+          v-bind="ui.widgetConfig"
+      >
+      </el-time-picker>`,
+      data() {
+        return {
+          ui: propConfig.ui,
+        }
+      }
+    }
+  }
+});
+
 window.startApp = function () {
 
   // console.log(globalThis.ZY)

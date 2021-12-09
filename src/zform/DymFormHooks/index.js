@@ -19,6 +19,10 @@ function renderCOM(formCONFIG) {
   return partStr;
 }
 
+let fieldMixinDefMap = new Map();
+export function defZFormFieldCom(name, value) {
+  fieldMixinDefMap.set(name, value)
+}
 
 export function configToComponent(comName, config, tpl, {
   outerCtx
@@ -132,23 +136,11 @@ export function configToComponent(comName, config, tpl, {
         updateValue,
         getUI_CONFIG,
         fieldMixin(propConfig) {
-          // console.log(propConfig)
-          if (propConfig.sub_type === 'time') {
-            return {
-              template: `<el-time-picker
-        v-model="value"
-        @change="onInput"
-        v-bind="ui.widgetConfig"
-    >
-    </el-time-picker>`,
-              data() {
-                return {
-                  ui: propConfig.ui,
-                }
-              }
-            }
+          let widget = ZY.lodash.get(propConfig, ['ui', 'widget'], '')
+          // console.log(widget, propConfig)
+          if (fieldMixinDefMap.has(widget)) {
+            return fieldMixinDefMap.get(widget).create(propConfig)
           }
-
           return {
             template: '<el-input v-model="value" @input="onInput" v-bind="ui.widgetConfig"></el-input>',
             data() {
