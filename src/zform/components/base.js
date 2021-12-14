@@ -151,9 +151,9 @@ defZFormFieldCom('CusCheckbox', {
           value: [],
         }
       },
-      beforeCreate() {
-        console.log(this.value)
-      },
+      // beforeCreate() {
+      //   console.log(this.value)
+      // },
       methods: {
 
       }
