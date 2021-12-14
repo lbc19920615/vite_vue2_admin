@@ -66,7 +66,7 @@ defZFormFieldCom('CusRichText', {
             }
             return css
           }
-          console.dir(getCss())
+          // console.dir(getCss())
           self.getShadow().setContent(getCss(), getHtml())
         }
       }
