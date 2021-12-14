@@ -203,9 +203,7 @@ defZFormFieldCom('CusRadio', {
           value: undefined,
         }
       },
-      beforeCreate() {
-        console.log(this.value)
-      },
+ 
       methods: {
 
       }
