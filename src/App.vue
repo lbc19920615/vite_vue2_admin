@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-<!--    <div>-->
-<!--      <el-button @click="loadFile">加载</el-button>-->
-<!--      <el-button @click="destory">destory</el-button>-->
-<!--    </div>-->
+    <div>
+      <el-button type="primary" @click="loadFile">加载</el-button>
+      <el-button type="danger" @click="destory">销毁</el-button>
+    </div>
     <div class="page" v-if="page.inited">
       <form-a  :config="page.formConfig" @submit-form="onSubmitForm"></form-a>
     </div>

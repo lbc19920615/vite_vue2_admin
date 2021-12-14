@@ -138,11 +138,11 @@ export function configToComponent(comName, config, tpl, {
         fieldMixin(propConfig) {
           let widget = ZY.lodash.get(propConfig, ['ui', 'widget'], '')
           // console.log(widget, propConfig)
-          if (fieldMixinDefMap.has(widget)) {
+          if (widget && fieldMixinDefMap.has(widget)) {
             return fieldMixinDefMap.get(widget).create(propConfig)
           }
           return {
-            template: '<el-input v-model="value" @input="onInput" v-bind="ui.widgetConfig"></el-input>',
+            template: `<div>${widget}</div>`,
             data() {
               return {
                 ui: propConfig.ui,

@@ -76,7 +76,15 @@ export default {
     }
     let onChange = onInput
 
-    function initValue() {
+    function initValue(oldVal) {
+      if (Array.isArray(oldVal)) {
+
+        // console.log(Array.isArray(oldVal), oldVal, state.value)
+        // if (typeof state.value === 'undefined' || state.value === null) {
+        //   return oldVal
+        // }
+        return oldVal
+      }
       return state.value
     }
 
@@ -123,17 +131,37 @@ export default {
 
     let cmFieldTpl = curFormCon.fieldMixin(prop_config)
 
+    let baseZFormComMixin = {
+      data() {
+        return {
+        }
+      },
+      methods: {
+        buildOptions(ui) {
+          let _widget = ZY.lodash.get(ui, ['widgetConfig'])
+          let options = []
+          // console.log(_widget)
+          if (_widget.options2) {
+            try {
+              let opt = ZY.JSON5.parse(_widget.options2)
+              options = options.concat(opt)
+            } catch (e) {
+              //
+            }
+          }
+          // console.log(_widget, widgetConfig2)
+          return options
+        }
+      }
+    }
+
     globalThis.CustomDymComponent.register({
       name: widgetUUID,
       mixins: [
+        baseZFormComMixin,
         cmFieldTpl
       ],
       inject: ['CurCmField'],
-      data() {
-        return {
-          value: null
-        }
-      },
       methods: {
         onInput(v) {
           this.CurCmField.onInput(v)
@@ -145,7 +173,7 @@ export default {
       beforeMount() {
         // console.log(this.CurCmField)
         this.CurCmField.register(this)
-        this.value = this.CurCmField.initValue()
+        this.value = this.CurCmField.initValue(this.value)
       },
       mounted() {
         // console.log(this.CurCmField)
