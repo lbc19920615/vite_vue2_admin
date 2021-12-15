@@ -5,7 +5,7 @@
       <el-button type="danger" @click="destory">销毁</el-button>
     </div>
     <div class="page" v-if="page.inited">
-      <form-a :debug="true"  @submit-form="onSubmitForm"></form-a>
+      <form-a :debug="true"  @form-submit="onSubmitForm"></form-a>
     </div>
   </div>
 </template>
