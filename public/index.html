@@ -11,7 +11,7 @@
   </head>
   <body>
 
-  <script src="twig.min.js"></script>
+  <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
   <script type="module">
     const getGlobal = function() {
       if (typeof self !== 'undefined') { return self; }
@@ -24,7 +24,7 @@
       _global.globalThis = _global;
     }
 
-    import * as ZY from '<%= process.env.VUE_APP_EXPOSE %>/main.js'
+    import * as ZY from '<%= process.env.VUE_APP_RES %>/expose/main.js'
     // eslint-disable-next-line no-undef
     globalThis.ZY = ZY
 
