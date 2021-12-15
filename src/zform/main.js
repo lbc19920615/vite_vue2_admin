@@ -1,6 +1,9 @@
 import SlotCom from "./SlotCom.vue";
 import CmField from "./CmField.vue";
 
+import '@/zform/components/base';
+import '@/zform/components/richtext';
+
 export function initZForm(Vue) {
   // console.log(Vue)
   function buildVueComponentMan() {
