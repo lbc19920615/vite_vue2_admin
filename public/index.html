@@ -10,8 +10,30 @@
 
   </head>
   <body>
-  <script id="formTpl" type="text/html">
-    <div class="http-com comformscr2">
+
+
+  <script type="module">
+    const getGlobal = function() {
+      if (typeof self !== 'undefined') { return self; }
+      if (typeof window !== 'undefined') { return window; }
+      if (typeof global !== 'undefined') { return global; }
+      throw new Error('unable to locate global object');
+    };
+    let _global = getGlobal();
+    if (typeof _global.globalThis === 'undefined') {
+      _global.globalThis = _global;
+    }
+
+    import * as ZY from '<%= process.env.VUE_APP_EXPOSE %>/main.js'
+    // eslint-disable-next-line no-undef
+    globalThis.ZY = ZY
+
+    // import * as ZY_EXT from '<%= process.env.VUE_APP_EXPOSE %>/ext.js'
+    // // eslint-disable-next-line no-undef
+    // globalThis.ZY_EXT = ZY_EXT;
+
+    globalThis.Z_FORM_TPL = ZY.getHereDoc(function () {/*
+        <div class="http-com comformscr2">
       <template v-if="config.debug">{% verbatim %}{{ {% endverbatim %} parts {% verbatim %} }} {% endverbatim %}</template>
       {% for part in CONFIG.parts %}
       {% set partConfigKey = 'config.parts[' ~ loop.index0 ~ '].def' %}
@@ -31,27 +53,7 @@
         {% endif %}
       {% endfor %}
     </div>
-  </script>
-
-  <script type="module">
-    const getGlobal = function() {
-      if (typeof self !== 'undefined') { return self; }
-      if (typeof window !== 'undefined') { return window; }
-      if (typeof global !== 'undefined') { return global; }
-      throw new Error('unable to locate global object');
-    };
-    let _global = getGlobal();
-    if (typeof _global.globalThis === 'undefined') {
-      _global.globalThis = _global;
-    }
-
-    import * as ZY from '<%= process.env.VUE_APP_EXPOSE %>/main.js'
-    // eslint-disable-next-line no-undef
-    globalThis.ZY = ZY
-
-    import * as ZY_EXT from '<%= process.env.VUE_APP_EXPOSE %>/ext.js'
-    // eslint-disable-next-line no-undef
-    globalThis.ZY_EXT = ZY_EXT;
+    */})
   </script>
 
     <noscript>

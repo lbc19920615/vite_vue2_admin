@@ -30,9 +30,9 @@ export default defineComponent({
   props: {
     title: String,
     config: Object,
-    templateId: {
+    varName: {
       type: String,
-      default: 'formTpl'
+      default: 'Z_FORM_TPL'
     },
     debug: Boolean
   },
@@ -54,7 +54,8 @@ export default defineComponent({
     async function init(config) {
       // console.log(formDef)
       // console.log(configToComponent)
-      let html = document.getElementById(props.templateId)?.innerHTML ?? '';
+      // let html = document.getElementById(props.varName)?.innerHTML ?? '';
+      let html = globalThis[props.varName]
       if (props.debug) {
         config.debug = true
       }

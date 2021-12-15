@@ -93,11 +93,15 @@ defZFormFieldCom('CusDateTimePicker', {
         >
         </el-date-picker>`,
       data() {
+        let w = propConfig.ui.widgetConfig;
+        w.valueFormat = 'yyyy-MM-dd HH:mm:ss'
+        // console.log(w)
         return {
+          widgetConfig: w,
           value: undefined,
           ui: propConfig.ui,
         }
-      }
+      },
     }
   }
 });
@@ -191,4 +195,36 @@ defZFormFieldCom('CusRadio', {
       }
     }
   }
-})
+});
+
+defZFormFieldCom('CusSelect', {
+  create(propConfig) {
+    return {
+      template: `
+        <el-select
+            v-model="value"
+            @change="onInput"
+            v-bind="ui.widgetConfig"
+        >
+        <el-option v-for="(option, key) in buildOptions(ui)"
+                     :label="option.label"
+                     :value="option.value"
+        ></el-option>
+        </el-select>
+      `,
+      mixins: [
+
+      ],
+      data() {
+        return {
+          ui: propConfig.ui,
+          value: undefined,
+        }
+      },
+
+      methods: {
+
+      }
+    }
+  }
+});

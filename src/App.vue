@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div>
-      <el-button type="primary" @click="loadFile">加载</el-button>
+<!--      <el-button type="primary" @click="loadFile">加载</el-button>-->
       <el-button type="danger" @click="destory">销毁</el-button>
     </div>
     <div class="page" v-if="page.inited">
-      <form-a  :config="page.formConfig" @submit-form="onSubmitForm"></form-a>
+      <form-a :debug="true"  @submit-form="onSubmitForm"></form-a>
     </div>
   </div>
 </template>
@@ -36,9 +36,9 @@ export default {
   },
   methods: {
     async initPage() {
-      const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
+      // const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
 
-      this.page.formConfig = store_vars?.value ?? []
+      // this.page.formConfig = store_vars?.value ?? []
       this.page.inited = true
     },
     async onSubmitForm({scope}) {
@@ -56,7 +56,8 @@ export default {
         try {
           let cloned = JSON5.parse(JSON5.stringify(obj.data));
           // console.log(cloned)
-          ZY_EXT.store.setItem(STORE_NAME, cloned)
+          await ZY_EXT.store.setItem(STORE_NAME, cloned);
+          location.reload();
         } catch (e) {
           console.log('loadFile parse err', e)
         }
