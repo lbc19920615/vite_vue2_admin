@@ -30,6 +30,12 @@ export default defineComponent({
   props: {
     title: String,
     config: Object,
+    metas: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
     varName: {
       type: String,
       default: 'Z_FORM_TPL'
@@ -64,7 +70,8 @@ export default defineComponent({
           config,
           html,
           {
-            outerCtx
+            outerCtx,
+            outerProps: props
           }
       )
       globalThis.CustomDymComponent.register(com);

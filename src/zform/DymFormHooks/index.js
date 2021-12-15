@@ -47,7 +47,8 @@ function flattenObject(ob) {
 }
 
 export function configToComponent(comName, config, tpl, {
-  outerCtx
+  outerCtx,
+  outerProps
 } = {}) {
   let compileData = {}
 
@@ -185,6 +186,9 @@ export function configToComponent(comName, config, tpl, {
           let observed =  parts[partName].model
           // console.log(observed)
           return ZY.structuralClone(observed)
+        },
+        getMetas() {
+          return outerProps?.metas
         }
       }
 

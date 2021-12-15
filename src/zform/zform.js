@@ -4,8 +4,9 @@ import DymForm from "@/zform/DymForm";
 /**
  * 创建formCommon mixin
  * @param formDef {{}}
+ * @param formMetas {{}}
  */
-export let createZformCommon = function ({formDef}) {
+export let createZformCommon = function ({formDef, formMetas}) {
   console.log(formDef)
   return {
     components: {DymForm},
@@ -17,6 +18,7 @@ export let createZformCommon = function ({formDef}) {
     },
     data() {
       return {
+        formMetas,
         inited: false,
         formDef: {
           parts: [

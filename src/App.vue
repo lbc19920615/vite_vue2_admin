@@ -46,7 +46,12 @@ export default {
       let [isValid, errors] = await ctx.submit(partName)
       if (isValid) {
         let model = await ctx.getRawData(partName);
-        console.log(model)
+        let metas = ctx.getMetas();
+        console.log(model, metas)
+        globalThis.Req.post('/api/zy-boot/json/addJson', {
+          tableName: metas.form_data,
+          model: model
+        })
       }
     },
     // async loadFile() {

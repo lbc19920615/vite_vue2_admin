@@ -10,11 +10,14 @@ Vue.config.productionTip = false
 
 globalThis.Vue = Vue
 
+
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import {initZForm} from "@/zform/main";
 Vue.use(initZForm)
 
+import { request } from '@/plugins/z-request/index.js'
+globalThis.Req = request;
 
 window.startApp = function () {
 
