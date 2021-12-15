@@ -49,20 +49,20 @@ export default {
         console.log(model)
       }
     },
-    async loadFile() {
-      let JSON5 = ZY.JSON5;
-      let obj = await ZY_EXT.fileOpenJSON5();
-      if (obj.data) {
-        try {
-          let cloned = JSON5.parse(JSON5.stringify(obj.data));
-          // console.log(cloned)
-          await ZY_EXT.store.setItem(STORE_NAME, cloned);
-          location.reload();
-        } catch (e) {
-          console.log('loadFile parse err', e)
-        }
-      }
-    },
+    // async loadFile() {
+    //   let JSON5 = ZY.JSON5;
+    //   let obj = await ZY_EXT.fileOpenJSON5();
+    //   if (obj.data) {
+    //     try {
+    //       let cloned = JSON5.parse(JSON5.stringify(obj.data));
+    //       // console.log(cloned)
+    //       await ZY_EXT.store.setItem(STORE_NAME, cloned);
+    //       location.reload();
+    //     } catch (e) {
+    //       console.log('loadFile parse err', e)
+    //     }
+    //   }
+    // },
     destory() {
       this.page.inited = false
     }

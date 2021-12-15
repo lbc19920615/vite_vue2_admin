@@ -46,14 +46,45 @@ export default {
   },
   setup(props, { emit }) {
 
+    let ZY_EXT = globalThis.ZY_EXT;
+    let lodash = ZY.lodash;
     let curFormCon = inject('curFormCon');
     let prop_config = props.prop_config ?? {};
+
+    let computedFun = prop_config.computedFun ?? ''
+    if (computedFun) {
+      let keys = []
+      let modelFun = Array.of(...computedFun.matchAll(/(MODEL\()[^\\)]*\)/g))
+      let modelStr = modelFun.map( v => v[0]).join(';')
+      // console.log(modelStr)
+      ZY_EXT.eval5(modelStr, {
+        MODEL(key) {
+          keys.push(key)
+        }
+      });
+      curFormCon.registerWatchHandle(keys, {
+        run(model) {
+          // console.log(computedFun)
+          let val = ZY_EXT.eval5(computedFun, {
+            ...globalThis.COM_FORM_COMMON_EVAL_FUNS,
+            MODEL(v, defaultVal) {
+              return lodash.get(model, v, defaultVal)
+            }
+          });
+          let str = ZY.getObjPathFromPathArr(props.pathArr);
+          // console.log(str)
+          lodash.set(model, str, val)
+        }
+      })
+      // console.log(keys)
+    }
+
     let isLocked = false;
     // const context = props.context;
     const uuid = 'cm-field-' + ZY.cid(10);
     let widgetUUID = uuid + '__widget__' + ZY.rid(10).toLowerCase()
 
-    let lodash = ZY.lodash;
+
     let state = reactive({
       comReady: false,
       value: props.modelValue ?? null,

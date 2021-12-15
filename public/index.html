@@ -13,6 +13,39 @@
 
   <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
   <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
+  <script>
+    {
+      const COMMON_EVAL_FUNS = {
+        时间间隔(date1, date2) {
+          /**
+           * @param date1 {Date|string (Date format)} 结束日期
+           * @param date2 {Date|string (Date format)} 开始日期
+           * @returns {null|*}
+           */
+          if (date1 && date2) {
+            return ZY.Time.subtract2Date(date1, date2).asHours()
+          }
+          return null
+        },
+        取整(v, presion) {
+          /**
+           * @param v
+           * @param presion
+           * @returns {string|*}
+           */
+          let ret = ZY.lodash.floor(v, presion)
+          // if (ret === 0) {
+          //   return ''
+          // }
+          return ret
+        }
+      }
+      if (typeof  window.COM_FORM_COMMON_EVAL_FUNS === 'undefined') {
+        window.COM_FORM_COMMON_EVAL_FUNS = COMMON_EVAL_FUNS
+      }
+
+    }
+  </script>
   <script type="module-shim">
     const getGlobal = function() {
       if (typeof self !== 'undefined') { return self; }
@@ -25,13 +58,13 @@
       _global.globalThis = _global;
     }
 
-    import * as ZY from '<%= process.env.VUE_APP_RES %>/expose/main.js'
+    import * as ZY from '<%= process.env.VUE_APP_RES %>/expose/main.js';
     // eslint-disable-next-line no-undef
-    globalThis.ZY = ZY
+    globalThis.ZY = ZY;
 
-    // import * as ZY_EXT from '<%= process.env.VUE_APP_EXPOSE %>/ext.js'
+    import * as ZY_EXT from '<%= process.env.VUE_APP_RES %>/expose/vue2.js';
     // // eslint-disable-next-line no-undef
-    // globalThis.ZY_EXT = ZY_EXT;
+    globalThis.ZY_EXT = ZY_EXT;
 
     globalThis.Z_FORM_TPL = ZY.getHereDoc(function () {/*
         <div class="http-com comformscr2">

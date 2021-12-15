@@ -1,4 +1,4 @@
-import {provide, reactive, getCurrentInstance} from "@vue/composition-api";
+import {provide, reactive, getCurrentInstance, watch} from "@vue/composition-api";
 import {renderForm} from "../hooks/tpllib";
 
 function renderCOM(formCONFIG) {
@@ -22,6 +22,28 @@ function renderCOM(formCONFIG) {
 let fieldMixinDefMap = new Map();
 export function defZFormFieldCom(name, value) {
   fieldMixinDefMap.set(name, value)
+}
+
+function flattenObject(ob) {
+  var toReturn = {};
+
+  for (var i in ob) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!ob.hasOwnProperty(i)) continue;
+
+    if ((typeof ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flattenObject(ob[i]);
+      for (var x in flatObject) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (!flatObject.hasOwnProperty(x)) continue;
+
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
 }
 
 export function configToComponent(comName, config, tpl, {
@@ -54,17 +76,55 @@ export function configToComponent(comName, config, tpl, {
     },
     setup(props, ctx) {
       let instanse = getCurrentInstance()
+      let JSON5 = ZY.JSON5;
       let lodash = ZY.lodash;
 
       function getRef(partName) {
         return instanse.refs['comformscr2__' + partName]
       }
 
+      let watchHandleMap = new Map();
+      function registerWatchHandle(key, value) {
+        watchHandleMap.set(key, value)
+      }
+
       function initPart(partDef) {
+        let cachedModel = '{}';
         let rowDef = partDef.def;
         let obj = ZY.formModel.create(rowDef)
         // console.log(obj, rowDef)
-        let model = reactive(obj)
+        let model = reactive(obj);
+        let modelLocks = false;
+
+        watch(model, (newVal, oldVal) => {
+          let newObj = JSON5.parse(JSON5.stringify(newVal));
+          let objKeys = Object.keys(newObj)
+          let oldObj = JSON5.parse(cachedModel)
+          let diffed = ZY.diff(oldObj, newObj);
+          let flattenD = flattenObject(diffed);
+
+          if (!modelLocks) {
+            // console.log('watch', flattenD)
+            let flattenDKeys = Object.keys(flattenD)
+            watchHandleMap.forEach(function (item, key) {
+              let isContains = lodash.difference(key, objKeys).length < 1;
+              let flattenDHas = lodash.difference(flattenDKeys, key).length < 1;
+              // console.log(flattenDHas, key, flattenDKeys)
+              if (isContains && flattenDHas) {
+                console.log('changed', key, )
+                modelLocks = true
+                item.run(model);
+                setTimeout(() => {
+                  modelLocks = false
+                }, 300)
+              }
+              // console.log(objKeys, key, isContains)
+            })
+
+          }
+
+          cachedModel = JSON5.stringify(newObj)
+        })
 
         return {
           model
@@ -128,10 +188,13 @@ export function configToComponent(comName, config, tpl, {
         }
       }
 
+
+
       let comIns = {
         config,
         exportCtx,
         parts,
+        registerWatchHandle,
         slotContent,
         updateValue,
         getUI_CONFIG,
