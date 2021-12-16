@@ -68,7 +68,7 @@ export default defineComponent({
           }
       )
       globalThis.CustomDymComponent.register(com);
-      outerCtx.root.$nextTick(() => {
+      globalThis.__zFormCachedVue__.nextTick(() => {
         state.comReady = true
       })
     }

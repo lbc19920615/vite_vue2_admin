@@ -5,6 +5,7 @@ import './components/base';
 import './components/richtext';
 
 export function initZForm(Vue) {
+  globalThis.__zFormCachedVue__ = Vue;
   // console.log(Vue)
   function buildVueComponentMan() {
     class ret {
