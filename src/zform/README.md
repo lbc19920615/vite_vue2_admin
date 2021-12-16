@@ -7,6 +7,16 @@
 1. @vue/composition-api
 2. @/zform/main
 
+### index.html
+
+```html
+  <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
+  <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
+  <script type="module-shim" src="<%= process.env.VUE_APP_RES %>/init-vue2.js">
+
+  </script>
+```
+
 ### main.js
 
 ```javascript
