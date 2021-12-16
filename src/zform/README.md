@@ -38,3 +38,45 @@ debug: {
   type: Boolean
 }
 ``` 
+
+## 二次开发
+
+### 预制方法
+
+zfield__ 前缀的不可以重写
+
+```typescript
+/**
+ * 用于触发更新
+ */
+function zfield__onInput(newVal: any):void {}
+```
+
+### 开发自己的组件
+
+```javascript
+import {defZFormFieldCom} from "@/zform/DymFormHooks";
+
+defZFormFieldCom('CusInput', {
+  /**
+   * @param propConfig {{ ui: { label: '', widget: '', widgetConfig: {} }, rules: [] }}
+   */
+  create(propConfig) {
+    return {
+      template: '<el-input v-model="value" @input="zfield__onInput" v-bind="ui.widgetConfig"></el-input>',
+      mixins: [
+
+      ],
+      data() {
+        return {
+          /**
+           * 必须设置这个字段
+           */
+          value: undefined,
+          ui: propConfig.ui,
+        }
+      }
+    }
+  }
+})
+```
