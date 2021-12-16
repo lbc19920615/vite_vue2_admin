@@ -7,7 +7,7 @@ import DymForm from "@/zform/DymForm";
  * @param formMetas {{}}
  */
 export let createZformCommon = function ({formDef, formMetas}) {
-  console.log(formDef)
+  // console.log(formDef)
   return {
     components: {DymForm},
     props: {
