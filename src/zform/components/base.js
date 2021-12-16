@@ -1,4 +1,4 @@
-import {defZFormFieldCom} from "@/zform/lib";
+import {defZFormFieldCom} from "../lib/index.js";
 
 defZFormFieldCom('CusInput', {
   create(propConfig) {
