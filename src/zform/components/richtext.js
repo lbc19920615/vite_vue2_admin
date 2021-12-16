@@ -1,4 +1,4 @@
-import {defZFormFieldCom} from "../lib/index.js";
+import {defZFormFieldCom} from "../render.js";
 
 if (typeof window !== 'undefined' && window.customElements && !window.customElements.get('z-shadow')) {
   class ZShadow extends HTMLElement {

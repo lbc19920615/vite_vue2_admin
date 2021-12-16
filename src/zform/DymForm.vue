@@ -13,7 +13,7 @@ import {
   reactive,
   onBeforeUnmount
 } from "@vue/composition-api";
-import {configToComponent} from "./lib";
+import {configToComponent} from "./render.js";
 
 const COM_PREFIX = 'dym-form__';
 
