@@ -1,4 +1,4 @@
-import DymForm from "@/zform/DymForm";
+import DymForm from "./DymForm.vue";
 // import {buildFormDep} from "@/zform/hooks/build";
 
 /**

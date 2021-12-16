@@ -11,14 +11,7 @@
 import {
   defineComponent,
   reactive,
-  // toRaw,
-  // computed,
-  // watchEffect,
-  // onMounted,
-  // onBeforeMount,
-  // onUpdated,
-  // onBeforeUpdate,
-  ref, onBeforeUnmount, provide
+  onBeforeUnmount
 } from "@vue/composition-api";
 import Vue from 'vue/dist/vue.esm'
 import {configToComponent} from "./lib";
@@ -43,8 +36,8 @@ export default defineComponent({
     debug: Boolean
   },
   setup(props, outerCtx) {
-    let ZY_EXT = globalThis.ZY_EXT;
-    let JSON5 = globalThis.ZY.JSON5;
+    // let ZY_EXT = globalThis.ZY_EXT;
+    // let JSON5 = globalThis.ZY.JSON5;
     let comName = COM_PREFIX + ZY.lodash.kebabCase(ZY.rid());
 
 
