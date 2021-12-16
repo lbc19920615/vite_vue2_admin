@@ -155,7 +155,7 @@ export default {
       if (!isLocked) {
         console.log('cmfield watch', newVal, ele)
         // state.value = newVal
-        ele.setVal(newVal)
+        ele.zfield__setVal(newVal)
       }
     }, {
     })
@@ -168,7 +168,7 @@ export default {
         }
       },
       methods: {
-        buildOptions(ui) {
+        zfeild__buildOptions(ui) {
           let _widget = ZY.lodash.get(ui, ['widgetConfig'])
           let options = []
           // console.log(_widget)
@@ -194,10 +194,13 @@ export default {
       ],
       inject: ['CurCmField'],
       methods: {
-        onInput(v) {
+        // onInput(v) {
+        //   this.CurCmField.onInput(v)
+        // },
+        zfield__onInput(v) {
           this.CurCmField.onInput(v)
         },
-        setVal(v) {
+        zfield__setVal(v) {
           this.value = v
         }
       },
@@ -206,9 +209,6 @@ export default {
         this.CurCmField.register(this)
         this.value = this.CurCmField.initValue(this.value)
       },
-      mounted() {
-        // console.log(this.CurCmField)
-      }
     })
 
     onBeforeMount(() => {

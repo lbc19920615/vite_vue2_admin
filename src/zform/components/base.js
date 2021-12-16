@@ -3,7 +3,7 @@ import {defZFormFieldCom} from "@/zform/DymFormHooks";
 defZFormFieldCom('CusInput', {
   create(propConfig) {
     return {
-      template: '<el-input v-model="value" @input="onInput" v-bind="ui.widgetConfig"></el-input>',
+      template: '<el-input v-model="value" @input="zfield__onInput" v-bind="ui.widgetConfig"></el-input>',
       mixins: [
 
       ],
@@ -35,9 +35,9 @@ defZFormFieldCom('CusInputNumber', {
         onInputNumber(e) {
           let v = parseFloat(e);
           if (Number.isNaN(v)) {
-            this.onInput('')
+            this.zfield__onInput('')
           }
-          this.onInput(v)
+          this.zfield__onInput(v)
         }
       }
     }
@@ -47,7 +47,7 @@ defZFormFieldCom('CusInputNumber', {
 defZFormFieldCom('CusTextarea', {
   create(propConfig) {
     return {
-      template: '<el-input v-model="value" @input="onInput" v-bind="ui.widgetConfig"></el-input>',
+      template: '<el-input v-model="value" @input="zfield__onInput" v-bind="ui.widgetConfig"></el-input>',
       mixins: [
 
       ],
@@ -67,7 +67,7 @@ defZFormFieldCom('CusRate', {
       template: `
         <el-rate
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
         </el-rate>`,
@@ -90,7 +90,7 @@ defZFormFieldCom('CusSlider', {
       template: `
         <el-slider
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
         </el-slider>`,
@@ -115,7 +115,7 @@ defZFormFieldCom('CusDateTimePicker', {
         <el-date-picker
             type="datetime"
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
         </el-date-picker>`,
@@ -140,7 +140,7 @@ defZFormFieldCom('CusTimePicker', {
       template: `
         <el-time-picker
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
         </el-time-picker>`,
@@ -164,10 +164,10 @@ defZFormFieldCom('CusCheckbox', {
       template: `
         <el-checkbox-group
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
-        <el-checkbox v-for="(option, key) in buildOptions(ui)"
+        <el-checkbox v-for="(option, key) in zfeild__buildOptions(ui)"
                      :label="option.label"
                      :value="option.value"
         ></el-checkbox>
@@ -198,10 +198,10 @@ defZFormFieldCom('CusRadio', {
       template: `
         <el-radio-group
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
-        <el-radio v-for="(option, key) in buildOptions(ui)"
+        <el-radio v-for="(option, key) in zfeild__buildOptions(ui)"
                      :label="option.label"
                      :value="option.value"
         ></el-radio>
@@ -230,10 +230,10 @@ defZFormFieldCom('CusSelect', {
       template: `
         <el-select
             v-model="value"
-            @change="onInput"
+            @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
-        <el-option v-for="(option, key) in buildOptions(ui)"
+        <el-option v-for="(option, key) in zfeild__buildOptions(ui)"
                      :label="option.label"
                      :value="option.value"
         ></el-option>
