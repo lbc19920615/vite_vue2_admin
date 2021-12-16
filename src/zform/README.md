@@ -6,6 +6,7 @@
 
 1. @vue/composition-api
 2. @/zform/main
+3. 使用vue/dist/vue.esm版本 2.6x
 
 ### index.html
 
