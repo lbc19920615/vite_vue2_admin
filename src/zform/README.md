@@ -10,8 +10,9 @@
 ### index.html
 
 ```html
-  <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
+<script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
 <script src="<%= process.env.VUE_APP_RES %>/init2.js"></script>
+<script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
 ```
 
 ### main.js
