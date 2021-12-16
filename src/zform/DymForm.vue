@@ -13,7 +13,6 @@ import {
   reactive,
   onBeforeUnmount
 } from "@vue/composition-api";
-import Vue from 'vue/dist/vue.esm'
 import {configToComponent} from "./lib";
 
 const COM_PREFIX = 'dym-form__';
@@ -38,6 +37,7 @@ export default defineComponent({
   setup(props, outerCtx) {
     // let ZY_EXT = globalThis.ZY_EXT;
     // let JSON5 = globalThis.ZY.JSON5;
+    console.log(outerCtx)
     let comName = COM_PREFIX + ZY.lodash.kebabCase(ZY.rid());
 
 
@@ -68,7 +68,7 @@ export default defineComponent({
           }
       )
       globalThis.CustomDymComponent.register(com);
-      Vue.nextTick(() => {
+      outerCtx.root.$nextTick(() => {
         state.comReady = true
       })
     }
