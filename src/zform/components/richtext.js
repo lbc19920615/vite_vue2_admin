@@ -1,4 +1,4 @@
-import {defZFormFieldCom} from "@/zform/DymFormHooks";
+import {defZFormFieldCom} from "@/zform/lib";
 
 if (!window.customElements.get('z-shadow')) {
   class ZShadow extends HTMLElement {

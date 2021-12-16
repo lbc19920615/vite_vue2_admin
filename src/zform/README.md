@@ -21,15 +21,8 @@
 // vue2.6.x
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-import {initZForm} from "@/zform/main";
-
-globalThis.importScripts(process.env.VUE_APP_RES + '/init-vue2.js').then(res => {
-  Vue.use(initZForm);
-//  实例化app
-  let app = new Vue({
-    render: h => h(App),
-  }).$mount('#app');
-});
+import  { initZForm } from '@/zform/init';
+Vue.use(initZForm);
 ```
 
 ### 页面调用
@@ -71,7 +64,7 @@ function zfield__onInput(newVal: any):void {}
 ### 开发自己的组件
 
 ```javascript
-import {defZFormFieldCom} from "@/zform/DymFormHooks";
+import {defZFormFieldCom} from "@/zform/lib";
 
 defZFormFieldCom('CusInput', {
   /**

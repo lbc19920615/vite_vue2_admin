@@ -1,4 +1,4 @@
-import {defZFormFieldCom} from "@/zform/DymFormHooks";
+import {defZFormFieldCom} from "@/zform/lib";
 
 defZFormFieldCom('CusInput', {
   create(propConfig) {
