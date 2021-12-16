@@ -37,7 +37,7 @@ export default defineComponent({
   setup(props, outerCtx) {
     // let ZY_EXT = globalThis.ZY_EXT;
     // let JSON5 = globalThis.ZY.JSON5;
-    console.log(outerCtx)
+    // console.log(outerCtx)
     let comName = COM_PREFIX + ZY.lodash.kebabCase(ZY.rid());
 
 
