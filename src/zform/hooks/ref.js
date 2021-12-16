@@ -1,4 +1,3 @@
-import mitt from "mitt";
 import {inject, onBeforeUnmount, onMounted, provide} from "@vue/composition-api";
 
 export function createRefManager({eventHandler}) {
@@ -12,7 +11,7 @@ export function createRefManager({eventHandler}) {
    * @returns {{emit: {<T=any>(type: EventType, event?: T): void, (type: "*", event?: any): void}, uuid: *}}
    */
   RefsManager.register = function (context, uuid = ZY.nid(), append = {}) {
-    const emitter = mitt()
+    const emitter = globalThis.ZY_EXT.mitt()
     emitter.on('*', (type, e) => {
       // console.log(type, e)
       if (eventHandler) {
