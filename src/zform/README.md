@@ -17,10 +17,10 @@
 ### main.js
 
 ```javascript
+// vue2.6.x
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import {initZForm} from "@/zform/main";
-Vue.use(initZForm)
 
 globalThis.importScripts(process.env.VUE_APP_RES + '/init-vue2.js').then(res => {
   Vue.use(initZForm);
