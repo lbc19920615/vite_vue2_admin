@@ -35,6 +35,7 @@
       "globalThis": false,
       "ZY_EXT": false
     },
+    "ignorePatterns": ["src/zform/**/*"],
     "extends": [
       "plugin:vue/essential",
       "eslint:recommended"
