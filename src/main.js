@@ -14,16 +14,15 @@ globalThis.Vue = Vue
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import {initZForm} from "@/zform/main";
-Vue.use(initZForm)
 
 import { request } from '@/plugins/z-request/index.js'
 globalThis.Req = request;
 
-window.startApp = function () {
-
+globalThis.importScripts(process.env.VUE_APP_RES + '/init-vue2.js').then(res => {
+  Vue.use(initZForm)
   // console.log(globalThis.ZY)
   let app = new Vue({
     render: h => h(App),
   }).$mount('#app');
+})
 
-}

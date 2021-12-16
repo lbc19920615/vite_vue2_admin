@@ -11,10 +11,7 @@
 
 ```html
   <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
-  <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
-  <script type="module-shim" src="<%= process.env.VUE_APP_RES %>/init-vue2.js">
-
-  </script>
+<script src="<%= process.env.VUE_APP_RES %>/init2.js"></script>
 ```
 
 ### main.js
@@ -24,6 +21,14 @@ import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import {initZForm} from "@/zform/main";
 Vue.use(initZForm)
+
+globalThis.importScripts(process.env.VUE_APP_RES + '/init-vue2.js').then(res => {
+  Vue.use(initZForm);
+//  实例化app
+  let app = new Vue({
+    render: h => h(App),
+  }).$mount('#app');
+});
 ```
 
 ### 页面调用

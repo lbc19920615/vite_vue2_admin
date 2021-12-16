@@ -12,18 +12,19 @@
   <body>
 
   <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
-  <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
-  <script type="module-shim" src="<%= process.env.VUE_APP_RES %>/init-vue2.js">
+  <script src="<%= process.env.VUE_APP_RES %>/init2.js"></script>
+<!--  <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>-->
+<!--  <script type="module-shim" src="<%= process.env.VUE_APP_RES %>/init-vue2.js">-->
 
-  </script>
+<!--  </script>-->
 
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    <script type="module-shim">
-      window.startApp();
-    </script>
+<!--    <script type="module-shim">-->
+<!--      window.startApp();-->
+<!--    </script>-->
   </body>
 </html>
