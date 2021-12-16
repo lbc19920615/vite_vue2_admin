@@ -66,7 +66,7 @@ function zfield__onInput(newVal: any):void {}
 ### 开发自己的组件
 
 ```javascript
-import {defZFormFieldCom} from "@/zform/lib";
+import {defZFormFieldCom} from "[path]/zform/lib";
 
 defZFormFieldCom('CusInput', {
   /**
