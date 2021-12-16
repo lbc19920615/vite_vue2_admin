@@ -29,5 +29,4 @@ globalThis.Z_FORM_TPL = ZY.getHereDoc(function() { /*
 </div>
 */ });
 
-import * as main from "./main";
-export let initZForm = main.initZForm;
+export {initZForm} from "./main";
