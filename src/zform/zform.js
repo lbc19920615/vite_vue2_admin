@@ -12,6 +12,9 @@ export let createZformCommon = function ({formDef, formMetas}) {
     components: {DymForm},
     props: {
       // config: String,
+      /**
+       * 调试开关
+       */
       debug: {
         type: Boolean
       }
