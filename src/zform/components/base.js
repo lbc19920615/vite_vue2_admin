@@ -17,6 +17,33 @@ defZFormFieldCom('CusInput', {
   }
 })
 
+defZFormFieldCom('CusInputNumber', {
+  create(propConfig) {
+    return {
+      template: '<el-input type="number" v-model.number="value" ' +
+        '@input="onInputNumber" v-bind="ui.widgetConfig"></el-input>',
+      mixins: [
+
+      ],
+      data() {
+        return {
+          value: undefined,
+          ui: propConfig.ui,
+        }
+      },
+      methods:{
+        onInputNumber(e) {
+          let v = parseFloat(e);
+          if (Number.isNaN(v)) {
+            this.onInput('')
+          }
+          this.onInput(v)
+        }
+      }
+    }
+  }
+})
+
 defZFormFieldCom('CusTextarea', {
   create(propConfig) {
     return {
