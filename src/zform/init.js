@@ -30,3 +30,5 @@ globalThis.Z_FORM_TPL = ZY.getHereDoc(function() { /*
 */ });
 
 export {initZForm} from "./main";
+import {createZformCommon} from "@/zform/zform";
+globalThis.createZformCommon = createZformCommon

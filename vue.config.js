@@ -8,11 +8,12 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@expose': 'http://localhost:7002/public/expose'
+        '@expose': 'http://192.168.1.67:7002/public/expose'
       }
     },
   },
   devServer: {
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       // 字符串简写写法
       // '/api': 'http://192.168.1.51:10010',
