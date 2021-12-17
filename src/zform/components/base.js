@@ -93,7 +93,8 @@ defZFormFieldCom('CusSlider', {
             @change="zfield__onInput"
             v-bind="ui.widgetConfig"
         >
-        </el-slider>`,
+        </el-slider>
+      `,
       mixins: [
 
       ],
