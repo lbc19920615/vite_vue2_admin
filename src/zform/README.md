@@ -1,7 +1,5 @@
 # vue2 zform文档
 
-
-
 ## 依赖
 
 1. @vue/composition-api
@@ -48,7 +46,7 @@ Vue.use(initZForm);
 debug: {
   type: Boolean
 }
-``` 
+```
 
 ## 二次开发
 
