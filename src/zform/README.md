@@ -91,3 +91,39 @@ defZFormFieldCom('CusInput', {
   }
 })
 ```
+
+### 可以使用自定义vue
+
+```javascript
+import ZCusCom from "@/plugins/app-com/ZCusCom.vue";
+
+// 使用自定义组件
+defZFormFieldCom('CusCom2', {
+  create(propConfig) {
+    return {
+      template: `
+        <div>
+        <div>{{value}}</div>
+        <z-cus-com @val-change="onInput" :value="value"></z-cus-com>
+        </div>
+      `,
+      components: {
+        ZCusCom
+      },
+      data() {
+        return {
+          value: undefined,
+          ui: propConfig.ui,
+        }
+      },
+      methods: {
+
+        onInput(v) {
+          this.value = v
+          this.zfield__onInput(v)
+        }
+      }
+    }
+  }
+});
+```
