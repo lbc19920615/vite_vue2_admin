@@ -203,8 +203,18 @@ export function configToComponent(comName, config, tpl, {
         updateValue,
         getUI_CONFIG,
         fieldMixin(propConfig) {
+          let ui = ZY.lodash.get(propConfig, ['ui'], {})
           let widget = ZY.lodash.get(propConfig, ['ui', 'widget'], '')
-          // console.log(widget, propConfig)
+          if (ui.custom) {
+            return {
+              template: `<div>custom</div>`,
+              data() {
+                return {
+                  ui: propConfig.ui,
+                }
+              }
+            }
+          }
           if (widget && fieldMixinDefMap.has(widget)) {
             return fieldMixinDefMap.get(widget).create(propConfig)
           }
