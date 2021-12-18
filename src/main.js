@@ -13,12 +13,6 @@ globalThis.Vue = Vue
 
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
-
-
-
-
-initSfc({Vue})
-
 import  { initZForm } from '@/zform/init';
 Vue.use(initZForm);
 
