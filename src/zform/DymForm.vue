@@ -32,8 +32,11 @@ export default {
   setup(props, outerCtx) {
     const {
       reactive,
+      getCurrentInstance,
       onBeforeUnmount
     } = globalThis.vueCompositionAPI;
+    let instanse = getCurrentInstance();
+    let meta = globalThis.getZFormMeta(instanse);
     // let ZY_EXT = globalThis.ZY_EXT;
     // let JSON5 = globalThis.ZY.JSON5;
     // console.log(outerCtx)
@@ -66,7 +69,7 @@ export default {
             outerProps: props
           }
       )
-      globalThis.CustomDymComponent.register(com);
+      meta.CustomDymComponent.register(com);
       globalThis.__zFormCachedVue__.nextTick(() => {
         state.comReady = true
       })
@@ -79,7 +82,7 @@ export default {
     }
 
     onBeforeUnmount(() => {
-      globalThis.CustomDymComponent.unRegister(comName);
+      meta.CustomDymComponent.unRegister(comName);
     })
 
     return {

@@ -1,10 +1,13 @@
-import SlotCom from "./SlotCom.vue";
-import CmField from "./CmField.vue";
+// import SlotCom from "./SlotCom.vue";
+// import CmField from "./CmField.vue";
 
 import './components/base';
 import './components/richtext';
+import {install} from "@/zform/coms";
 
-function initSfc({Vue} = {}) {
+
+
+function initSfc({app, Vue} = {}) {
   let templateSfc = function (sfc) {
     if (sfc.template) {
       return sfc.template.content
@@ -20,7 +23,7 @@ function initSfc({Vue} = {}) {
       script.innerHTML = `let callback = '${id}';` + h;
       document.body.append(script)
       globalThis[id] = function ({comName, def}) {
-        Vue.component(comName, def);
+        app.component(comName, def);
         Vue.nextTick(() => {
           resolve({
             comName, def
@@ -79,10 +82,33 @@ function initSfc({Vue} = {}) {
   globalThis.zParseVueComponent = parseVueComponent
 }
 
+let vueVersion = 0;
+globalThis.getZFormMeta = function (instanse) {
+  let appName;
+  if (instanse.appContext) {
+    appName = instanse.appContext.app.config.globalProperties.name
+  }
+  appName = globalThis.__zFormCachedVue__.name;
+  if (appName) {
+    return zFormMetas.get(appName)
+  }
+}
 
-export function initZForm(Vue) {
-  globalThis.__zFormCachedVue__ = Vue;
-  initSfc({Vue});
+let zFormMetas = new Map();
+
+function getAppName(app, Vue) {
+  vueVersion = parseInt(Vue.version);
+  if (vueVersion < 3) {
+    return Vue.name
+  }
+  return app.config.globalProperties.name
+}
+
+export function initZForm(app, Vue) {
+
+
+  globalThis.__zFormCachedVue__ = app;
+  initSfc({app, Vue});
   // console.log(Vue)
   function buildVueComponentMan() {
     class ret {
@@ -116,15 +142,22 @@ export function initZForm(Vue) {
     return ret
   }
 
-  class CustomVueComponent extends buildVueComponentMan() {}
-  globalThis.CustomVueComponent = CustomVueComponent
+  // class CustomVueComponent extends buildVueComponentMan() {}
+  // globalThis.CustomVueComponent = CustomVueComponent
 
   class CustomDymComponent extends buildVueComponentMan() {}
-  globalThis.CustomDymComponent = CustomDymComponent
+  // globalThis.CustomDymComponent = CustomDymComponent
 
+  CustomDymComponent.app = app
+  let appName = getAppName(app, Vue);
+  // console.log(appName)
+  if (appName) {
+    zFormMetas.set(appName, {
+      CustomDymComponent
+    })
+  }
 
-  Vue.component(SlotCom.name, SlotCom);
-  Vue.component(CmField.name, CmField)
-  CustomVueComponent.app = Vue
-  CustomDymComponent.app = Vue
+  install(app, Vue, appName);
+  // CustomVueComponent.app = app
+
 }

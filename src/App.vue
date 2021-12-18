@@ -13,19 +13,17 @@
 
 <script>
 // import FormA from "@/components/form-a.vue";
-import FormLoader from "@/zform/FormLoader";
-const STORE_NAME = 'test-vue2';
+// import FormLoader from "@/zform/FormLoader";
+// import {install} from '@/zform/coms'
 
+const STORE_NAME = 'test-vue2';
 
 
 
 export default {
   name: 'App',
   components: {
-    FormLoader
     // FormA
-
-
   },
   data() {
     let self = this

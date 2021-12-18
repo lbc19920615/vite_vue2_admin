@@ -43,7 +43,10 @@ export default {
     slotContent: null,
   },
   setup(props, { emit }) {
-    const {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch} = globalThis.vueCompositionAPI;
+    const {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch, getCurrentInstance} = globalThis.vueCompositionAPI;
+    let instanse = getCurrentInstance();
+    let meta = globalThis.getZFormMeta(instanse);
+    // console.log(meta)
     let ZY_EXT = globalThis.ZY_EXT;
     let lodash = ZY.lodash;
     let curFormCon = inject('curFormCon');
@@ -184,7 +187,7 @@ export default {
       }
     }
 
-    globalThis.CustomDymComponent.register({
+    meta.CustomDymComponent.register({
       name: widgetUUID,
       mixins: [
         baseZFormComMixin,
@@ -214,7 +217,7 @@ export default {
     })
 
     onBeforeUnmount(() => {
-      globalThis.CustomDymComponent.unRegister(widgetUUID)
+      meta.CustomDymComponent.unRegister(widgetUUID)
     })
 
     provide('CurCmField', ret);

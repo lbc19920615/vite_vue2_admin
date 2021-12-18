@@ -16,7 +16,7 @@ Vue.use(VueCompositionApi);
 globalThis.vueCompositionAPI = Lib
 // globalThis.vueDefineCompnent = Lib.defineComponent
 import  { initZForm } from '@/zform/init';
-Vue.use(initZForm);
+initZForm(Vue, Vue)
 
 import { request } from '@/plugins/z-request/index.js'
 globalThis.Req = request;
