@@ -82,7 +82,7 @@ function initSfc({Vue} = {}) {
 
 export function initZForm(Vue) {
   globalThis.__zFormCachedVue__ = Vue;
-  initSfc(Vue);
+  initSfc({Vue});
   // console.log(Vue)
   function buildVueComponentMan() {
     class ret {
