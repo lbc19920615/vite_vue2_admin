@@ -19,6 +19,7 @@ export let createZformCommon = function ({formDef, formMetas}) {
         type: Boolean
       }
     },
+    inject: ['zformLoader'],
     data() {
       return {
         formMetas,
@@ -58,7 +59,8 @@ export let createZformCommon = function ({formDef, formMetas}) {
     },
     methods: {
       callEvent(name, scope, e) {
-        this.$emit(name, {
+        console.log(this.zformLoader)
+        this.zformLoader.emit(name, {
           scope,
           e
         })
