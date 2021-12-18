@@ -66,7 +66,7 @@ export default {
       // this.page.formConfig = store_vars?.value ?? []
       let html = document.getElementById('idtpl').innerHTML
       // console.log(html)
-      this.res = await globalThis.parseVueComponent({template: html});
+      this.res = await globalThis.zParseVueComponent({template: html});
 
       this.page.inited = true
     },
