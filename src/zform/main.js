@@ -85,10 +85,11 @@ function initSfc({app, Vue} = {}) {
 let vueVersion = 0;
 globalThis.getZFormMeta = function (instanse) {
   let appName;
-  if (instanse.appContext) {
+  if (instanse && instanse.appContext && instanse.appContext.app) {
     appName = instanse.appContext.app.config.globalProperties.name
+  } else {
+    appName = globalThis.__zFormCachedVue__.name;
   }
-  appName = globalThis.__zFormCachedVue__.name;
   if (appName) {
     return zFormMetas.get(appName)
   }
