@@ -1,8 +1,7 @@
 <script>
-import {defineComponent, provide, h} from "@vue/composition-api";
 import { createRefManager } from "./hooks/ref";
 
-export default defineComponent( {
+export default  {
   name: 'SlotCom',
   props: {
     defs: null,
@@ -24,6 +23,7 @@ export default defineComponent( {
     }
   },
   setup(props, ctx) {
+    const {provide, h} = globalThis.vueCompositionAPI;
     // let curFormCon = inject('curFormCon')
     // provide('curFormCon', curFormCon)
     let RefsManager = createRefManager({
@@ -46,5 +46,5 @@ export default defineComponent( {
       // return slotContents
     }
   }
-})
+}
 </script>

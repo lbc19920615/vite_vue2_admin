@@ -11,8 +11,10 @@ Vue.config.productionTip = false
 globalThis.Vue = Vue
 
 
-import VueCompositionApi from "@vue/composition-api";
+import VueCompositionApi, * as Lib from "@vue/composition-api";
 Vue.use(VueCompositionApi);
+globalThis.vueCompositionAPI = Lib
+// globalThis.vueDefineCompnent = Lib.defineComponent
 import  { initZForm } from '@/zform/init';
 Vue.use(initZForm);
 

@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch} from '@vue/composition-api'
-
 export default {
   name: 'CmField',
   props: {
@@ -45,7 +43,7 @@ export default {
     slotContent: null,
   },
   setup(props, { emit }) {
-
+    const {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch} = globalThis.vueCompositionAPI;
     let ZY_EXT = globalThis.ZY_EXT;
     let lodash = ZY.lodash;
     let curFormCon = inject('curFormCon');

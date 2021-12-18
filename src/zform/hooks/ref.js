@@ -1,6 +1,7 @@
-import {inject, onBeforeUnmount, onMounted, provide} from "@vue/composition-api";
+// import {inject, onBeforeUnmount, onMounted, provide} from "@vue/composition-api";
 
 export function createRefManager({eventHandler}) {
+  // const {inject, onBeforeUnmount, onMounted, provide} = globalThis.vueCompositionAPI
   let RefsManager = {
     Refs: new Map(),
   }
@@ -86,11 +87,11 @@ export function createRefManager({eventHandler}) {
  * @param eventHandler
  * @returns {{Refs: Map<any, any>}}
  */
-export function provideRefManager( {name = 'RefsManager', eventHandler} = {}) {
-  let RefsManager = createRefManager({eventHandler})
-  provide(name, RefsManager)
-  return RefsManager
-}
+// export function provideRefManager( {name = 'RefsManager', eventHandler} = {}) {
+//   let RefsManager = createRefManager({eventHandler})
+//   provide(name, RefsManager)
+//   return RefsManager
+// }
 
 /**
  * useRefsManager
@@ -99,20 +100,20 @@ export function provideRefManager( {name = 'RefsManager', eventHandler} = {}) {
  * @param catchUnMOunted
  * @param append
  */
-export function useRefsManager(ret, [catchMOunted, catchUnMOunted], append ) {
-  let def = {}
-  let RefsManager = inject('RefsManager')
-  onMounted(() => {
-    // console.log(RefsManager)
-    def = RefsManager.register(ret, ret.uuid, append)
-    if (catchMOunted) {
-      catchMOunted(def)
-    }
-  })
-  onBeforeUnmount(() => {
-    RefsManager.destory(def.uuid)
-    if (catchUnMOunted) {
-      catchUnMOunted()
-    }
-  })
-}
+// export function useRefsManager(ret, [catchMOunted, catchUnMOunted], append ) {
+//   let def = {}
+//   let RefsManager = inject('RefsManager')
+//   onMounted(() => {
+//     // console.log(RefsManager)
+//     def = RefsManager.register(ret, ret.uuid, append)
+//     if (catchMOunted) {
+//       catchMOunted(def)
+//     }
+//   })
+//   onBeforeUnmount(() => {
+//     RefsManager.destory(def.uuid)
+//     if (catchUnMOunted) {
+//       catchUnMOunted()
+//     }
+//   })
+// }

@@ -8,16 +8,11 @@
 </template>
 
 <script>
-import {
-  defineComponent,
-  reactive,
-  onBeforeUnmount
-} from "@vue/composition-api";
 import {configToComponent} from "./render.js";
 
 const COM_PREFIX = 'dym-form__';
 
-export default defineComponent({
+export default {
   name: "DymForm",
   props: {
     title: String,
@@ -35,6 +30,10 @@ export default defineComponent({
     debug: Boolean
   },
   setup(props, outerCtx) {
+    const {
+      reactive,
+      onBeforeUnmount
+    } = globalThis.vueCompositionAPI;
     // let ZY_EXT = globalThis.ZY_EXT;
     // let JSON5 = globalThis.ZY.JSON5;
     // console.log(outerCtx)
@@ -91,7 +90,7 @@ export default defineComponent({
       // Methods
     };
   }
-});
+};
 
 </script>
 
