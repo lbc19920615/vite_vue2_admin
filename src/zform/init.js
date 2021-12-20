@@ -6,8 +6,7 @@ import * as ZY_EXT from './lib/vue2.js';
 // eslint-disable-next-line no-undef
 globalThis.ZY_EXT = ZY_EXT;
 
-globalThis.Z_FORM_TPL = ZY.getHereDoc(function() { /*
-    <div class="http-com comformscr2">
+globalThis.Z_FORM_TPL = `<div class="http-com comformscr2">
   <template v-if="config.debug">{% verbatim %}{{ {% endverbatim %} parts {% verbatim %} }} {% endverbatim %}</template>
   {% for part in CONFIG.parts %}
   {% set partConfigKey = 'config.parts[' ~ loop.index0 ~ '].def' %}
@@ -26,8 +25,7 @@ globalThis.Z_FORM_TPL = ZY.getHereDoc(function() { /*
     </el-form>
     {% endif %}
   {% endfor %}
-</div>
-*/ });
+</div>`
 
 export {initZForm} from "./main";
 import {createZformCommon} from "@/zform/zform";

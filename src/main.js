@@ -18,8 +18,8 @@ globalThis.vueCompositionAPI = Lib
 import  { initZForm } from '@/zform/init';
 initZForm(Vue, Vue)
 
-import { request } from '@/plugins/z-request/index.js'
-globalThis.Req = request;
+// import { request } from '@/plugins/z-request/index.js'
+// globalThis.Req = request;
 
 
 

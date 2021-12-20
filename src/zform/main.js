@@ -1,11 +1,10 @@
-// import SlotCom from "./SlotCom.vue";
-// import CmField from "./CmField.vue";
-
 import './components/base';
 import './components/richtext';
-import {install} from "@/zform/coms";
+import {install} from "./coms";
 
 
+let zFormMetas = new Map();
+let vueVersion = 0;
 
 function initSfc({app, Vue} = {}) {
   let templateSfc = function (sfc) {
@@ -41,6 +40,7 @@ function initSfc({app, Vue} = {}) {
       // data.append('source', JSON.stringify(def))
       // let tpl = template;
       // console.log('cached_tpl', cached_tpl)
+      let tplId = 'tpl__' + ZY.rid();
       let sfc = globalThis.ZY_EXT.parseComponent(template)
       // const templateId = comName + '-tpl';
       // console.log(template)
@@ -60,9 +60,20 @@ function initSfc({app, Vue} = {}) {
       // if (handleScript) {
       //   scriptStr = handleScript(scriptStr)
       // }
+      let vuetpl = templateSfc(sfc);
+      let s = document.createElement('script');
+      s.type = 'text/html';
+      s.id = tplId;
+      s.innerHTML = vuetpl
+      document.body.append(s);
+
+
+      scriptStr = scriptStr.replace('[[TPL_ID]]', tplId)
 
       let {comName} = await createDef(scriptStr)
-      // let vuetpl = templateSfc(sfc)
+
+
+      console.log(scriptStr)
 
       // let res = await ZY.importJsStr(scriptStr)
       // ZY.DOM.initTemplate(templateId, globalThis.document, {
@@ -82,7 +93,7 @@ function initSfc({app, Vue} = {}) {
   globalThis.zParseVueComponent = parseVueComponent
 }
 
-let vueVersion = 0;
+
 globalThis.getZFormMeta = function (instanse) {
   let appName;
   if (instanse && instanse.appContext && instanse.appContext.app) {
@@ -94,8 +105,6 @@ globalThis.getZFormMeta = function (instanse) {
     return zFormMetas.get(appName)
   }
 }
-
-let zFormMetas = new Map();
 
 function getAppName(app, Vue) {
   vueVersion = parseInt(Vue.version);

@@ -2,7 +2,7 @@
   <div id="app">
     <div>
 <!--      <el-button type="primary" @click="loadFile">加载</el-button>-->
-      <el-button type="danger" @click="destory">销毁</el-button>
+<!--      <el-button type="danger" @click="destory">销毁</el-button>-->
     </div>
     <div class="page" v-if="page.inited">
 <!--      <form-b :debug="true"  @form-submit="onSubmitForm"></form-b>-->
@@ -65,7 +65,6 @@ export default {
       let html = document.getElementById('idtpl').innerHTML
       // console.log(html)
       this.res = await globalThis.zParseVueComponent({template: html});
-
       this.page.inited = true
     },
     async onSubmitForm({scope}) {
