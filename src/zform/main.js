@@ -32,7 +32,7 @@ function initSfc({app, Vue} = {}) {
     })
   }
 
-  async function parseVueComponent({handleScript, styles = [], template = '' } = {}) {
+  async function parseVueComponent({handleScript, styles = [], template = '', metas = {} } = {}) {
     try {
       // console.log('this.formDef', this.formDef)
       // console.log(def)
@@ -61,6 +61,8 @@ function initSfc({app, Vue} = {}) {
       //   scriptStr = handleScript(scriptStr)
       // }
       let vuetpl = templateSfc(sfc);
+
+
       let s = document.createElement('script');
       s.type = 'text/html';
       s.id = tplId;
@@ -69,6 +71,7 @@ function initSfc({app, Vue} = {}) {
 
 
       scriptStr = scriptStr.replace('[[TPL_ID]]', tplId)
+      scriptStr  = scriptStr.replace('[[metas]]', ZY.JSON5.stringify(metas))
 
       let {comName} = await createDef(scriptStr)
 
@@ -85,7 +88,8 @@ function initSfc({app, Vue} = {}) {
         comName,
       }
     } catch (e) {
-      console.error(e)
+      console.error(e);
+      return Promise.reject(e);
     } finally {
       //
     }

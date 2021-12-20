@@ -15,6 +15,7 @@
 // import FormA from "@/components/form-a.vue";
 // import FormLoader from "@/zform/FormLoader";
 // import {install} from '@/zform/coms'
+import {reqVueFile} from "@/apis/common";
 
 const STORE_NAME = 'test-vue2';
 
@@ -59,13 +60,41 @@ export default {
   },
   methods: {
     async initPage() {
+      let url = new URL(location.href);
+      let activeNo = url
+          .searchParams.get('activeNo');
+      let tableName = url
+          .searchParams.get('tableName')
       // const store_vars = await ZY_EXT.store.getItem(STORE_NAME);
 
       // this.page.formConfig = store_vars?.value ?? []
-      let html = document.getElementById('idtpl').innerHTML
+      // let html = document.getElementById('idtpl').innerHTML
       // console.log(html)
-      this.res = await globalThis.zParseVueComponent({template: html});
-      this.page.inited = true
+      if (!activeNo) {
+        console.log('no activeNo', err)
+        return;
+      }
+
+
+      let [err, vueFileStr] = await ZY.awaitTo(reqVueFile({
+        activeNo: activeNo
+      }));
+      if (err) {
+        console.log('get file failed', err)
+        return;
+      }
+      console.log(vueFileStr)
+
+      try {
+        this.res = await globalThis.zParseVueComponent({
+          template: vueFileStr,  metas: {
+            activeNo,
+            tableName
+          }});
+        this.page.inited = true
+      } catch (e) {
+        console.log('parse err',vueFileStr, e)
+      }
     },
     async onSubmitForm({scope}) {
       let {ctx, partName} = scope;
