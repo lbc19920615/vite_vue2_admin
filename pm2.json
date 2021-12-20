@@ -1,0 +1,7 @@
+{
+  "apps": [{
+    "name": "vite_vue2_admin",
+    "script": "server.js",
+    "args": "['--test=1']"
+  }]
+}
