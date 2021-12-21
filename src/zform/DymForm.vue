@@ -9,6 +9,7 @@
 
 <script>
 import {configToComponent} from "./render.js";
+import {getCachedVue} from "./glo";
 
 const COM_PREFIX = 'dym-form__';
 
@@ -70,7 +71,9 @@ export default {
           }
       )
       meta.CustomDymComponent.register(com);
-      globalThis.__zFormCachedVue__.nextTick(() => {
+      // globalThis.__zFormCachedVue__
+      getCachedVue()
+          .nextTick(() => {
         state.comReady = true
       })
     }

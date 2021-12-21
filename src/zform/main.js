@@ -1,6 +1,7 @@
 import './components/base';
 import './components/richtext';
 import {install} from "./coms";
+import {registerCachedVue, setZFormMeta} from "./glo";
 
 
 globalThis.ZForm = {}
@@ -126,6 +127,7 @@ export function initZForm(app, Vue) {
 
 
   globalThis.__zFormCachedVue__ = app;
+  registerCachedVue(app);
   initSfc({app, Vue});
   // console.log(Vue)
   function buildVueComponentMan() {
@@ -172,7 +174,10 @@ export function initZForm(app, Vue) {
   if (appName) {
     zFormMetas.set(appName, {
       CustomDymComponent
-    })
+    });
+    setZFormMeta(appName, {
+      CustomDymComponent
+    });
   }
 
   install(app, Vue, appName);
