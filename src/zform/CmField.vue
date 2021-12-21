@@ -45,7 +45,7 @@ export default {
   setup(props, { emit }) {
     const {inject, onBeforeMount, onBeforeUnmount, provide, reactive, watch, getCurrentInstance} = globalThis.vueCompositionAPI;
     let instanse = getCurrentInstance();
-    let meta = globalThis.getZFormMeta(instanse);
+    let meta = globalThis.ZForm.getZFormMeta (instanse);
     // console.log(meta)
     let ZY_EXT = globalThis.ZY_EXT;
     let lodash = ZY.lodash;

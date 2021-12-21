@@ -3,6 +3,7 @@ import './components/richtext';
 import {install} from "./coms";
 
 
+globalThis.ZForm = {}
 let zFormMetas = new Map();
 let vueVersion = 0;
 
@@ -95,10 +96,11 @@ function initSfc({app, Vue} = {}) {
     }
   }
   globalThis.zParseVueComponent = parseVueComponent
+  globalThis.ZForm.parseVueComponent = parseVueComponent
 }
 
 
-globalThis.getZFormMeta = function (instanse) {
+function getZFormMeta(instanse) {
   let appName;
   if (instanse && instanse.appContext && instanse.appContext.app) {
     appName = instanse.appContext.app.config.globalProperties.name
@@ -109,6 +111,8 @@ globalThis.getZFormMeta = function (instanse) {
     return zFormMetas.get(appName)
   }
 }
+// globalThis.getZFormMeta = getZFormMeta
+globalThis.ZForm.getZFormMeta = getZFormMeta
 
 function getAppName(app, Vue) {
   vueVersion = parseInt(Vue.version);

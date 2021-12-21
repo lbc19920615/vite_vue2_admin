@@ -36,7 +36,7 @@ export default {
       onBeforeUnmount
     } = globalThis.vueCompositionAPI;
     let instanse = getCurrentInstance();
-    let meta = globalThis.getZFormMeta(instanse);
+    let meta = globalThis.ZForm.getZFormMeta(instanse);
     // let ZY_EXT = globalThis.ZY_EXT;
     // let JSON5 = globalThis.ZY.JSON5;
     // console.log(outerCtx)
