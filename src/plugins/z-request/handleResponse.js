@@ -4,7 +4,6 @@ export default (response) => {
   // 如果http响应状态码response.status正常，则直接返回数据
   if ((status >= 200 && status <= 300) || status === 304) {
     let responseData = response.data || {}
-    // eslint-disable-next-line no-prototype-builtins
     if (responseData.hasOwnProperty('status') && responseData.hasOwnProperty('code')) {
 
       const status = responseData.status

@@ -18,7 +18,13 @@ globalThis.vueCompositionAPI = Lib
 import  { initZForm } from '@/zform/init';
 initZForm(Vue, Vue)
 
-import { request } from '@/plugins/z-request/index.js'
+import {initRequestLib, context} from '@/plugins/z-request/index.js';
+let { request }  = initRequestLib({
+  ajaxConfig: {
+    baseURL: process.env.VUE_APP_API_BASEURL
+  }
+});
+context.Message = ElementUI.Message;
 globalThis.Req = request;
 
 
