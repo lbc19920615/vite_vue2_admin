@@ -45,6 +45,7 @@
     },
     "rules": {
       "no-unused-vars": "off",
+      "no-prototype-builtins": "off",
       "vue/no-unused-vars": "off"
     }
   },
