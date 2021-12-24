@@ -256,3 +256,32 @@ defZFormFieldCom('CusSelect', {
     }
   }
 });
+
+defZFormFieldCom('CusCascader', {
+  create(propConfig) {
+    return {
+      template: `
+        <el-cascader
+            v-model="value"
+            @change="zfield__onInput"
+            v-bind="ui.widgetConfig"
+            :options="zfeild__buildOptions(ui)"
+        >
+        </el-cascader>
+      `,
+      mixins: [
+
+      ],
+      data() {
+        return {
+          ui: propConfig.ui,
+          value: undefined,
+        }
+      },
+
+      methods: {
+
+      }
+    }
+  }
+})

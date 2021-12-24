@@ -172,11 +172,19 @@ export default {
         zfeild__buildOptions(ui) {
           let _widget = ZY.lodash.get(ui, ['widgetConfig'])
           let options = []
-          // console.log(_widget)
           if (_widget.options2) {
             try {
               let opt = ZY.JSON5.parse(_widget.options2)
               options = options.concat(opt)
+            } catch (e) {
+              //
+            }
+          }
+          if (_widget.tree_options) {
+            try {
+              let opt = ZY.JSON5.parse(_widget.tree_options)
+              options = options.concat(opt)
+              console.log(options)
             } catch (e) {
               //
             }
