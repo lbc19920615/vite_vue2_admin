@@ -18,6 +18,9 @@ globalThis.vueCompositionAPI = Lib
 import  { initZForm } from '@/zform/init';
 initZForm(Vue, Vue)
 
+import {install} from "@/plugins/chinaArea";
+install(Vue)
+
 import {initRequestLib, context} from '@/plugins/z-request/index.js';
 let { request }  = initRequestLib({
   ajaxConfig: {
