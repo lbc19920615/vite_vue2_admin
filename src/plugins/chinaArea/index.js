@@ -17,9 +17,13 @@ function initChinaAreaManagerFromObj(obj= {}) {
     return manager
 }
 
+import chinaArea from "@/plugins/chinaArea/chinaArea.vue";
+
 export function install(Vue) {
     import('./area.json').then(res => {
-        console.log(res)
-        globalThis.chinaAreaManager = initChinaAreaManagerFromObj(res)
-    })
+        // console.log(res)
+        globalThis.chinaAreaManager =
+          initChinaAreaManagerFromObj(res);
+        Vue.component(chinaArea.name, chinaArea)
+    });
 }
