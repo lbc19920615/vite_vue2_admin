@@ -31,7 +31,7 @@ export default {
     } = globalThis.vueCompositionAPI;
     let chinaAreaManager =
         globalThis.chinaAreaManager;
-    console.log(props)
+    // console.log(props)
 
     let state = reactive({
       value: '',
