@@ -20,10 +20,10 @@ function initChinaAreaManagerFromObj(obj= {}) {
 import chinaArea from "@/plugins/chinaArea/chinaArea.vue";
 
 export function install(Vue) {
-    import('./area.json').then(res => {
+    import('./area.js').then(res => {
         // console.log(res)
         globalThis.chinaAreaManager =
-          initChinaAreaManagerFromObj(res);
+          initChinaAreaManagerFromObj(res.default);
         Vue.component(chinaArea.name, chinaArea)
     });
 }
