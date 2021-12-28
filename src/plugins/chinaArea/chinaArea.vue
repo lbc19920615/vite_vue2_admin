@@ -31,6 +31,7 @@ export default {
     } = globalThis.vueCompositionAPI;
     let chinaAreaManager =
         globalThis.chinaAreaManager;
+    console.log(props)
 
     let state = reactive({
       value: '',
@@ -42,7 +43,7 @@ export default {
           setTimeout(() => {
             let nodes = []
             let data = node.data
-            let area = chinaAreaManager.get(data.value ?? '86')
+            let area = chinaAreaManager.get((data && data.value) ?? '86')
             // const nodes = Array.from({ length: level + 1 }).map((item) => ({
             //   value: ++id,
             //   label: `Option - ${id}`,

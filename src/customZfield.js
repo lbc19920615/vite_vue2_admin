@@ -57,3 +57,34 @@ defZFormFieldCom('CusCom2', {
     }
   }
 });
+
+
+defZFormFieldCom('CusAddress', {
+  create(propConfig) {
+    return {
+      template: `
+        <div>
+<!--        {{ui}}-->
+          <china-area
+              v-bind="ui.widgetConfig"
+          ></china-area>
+        </div>
+      `,
+      components: {
+        ZCusCom
+      },
+      data() {
+        return {
+          value: undefined,
+          ui: propConfig.ui,
+        }
+      },
+      methods: {
+        onInput(v) {
+          this.value = v
+          this.zfield__onInput(v)
+        }
+      }
+    }
+  }
+});
