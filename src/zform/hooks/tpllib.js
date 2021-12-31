@@ -285,15 +285,16 @@ ${attrStr(p, 'wrapAttrs')}>`;
         const attrs2Str = attr2Str(attrs);
         // console.log(attrs);
 
+        if (wrap_start) {
+          context.tpl = context.tpl + wrap_start;
+        }
+
         if (wrap_tag) {
           context.tpl = context.tpl + `<${wrap_tag}
 :binds="{ key: '${key}',  label: '${getLabel(append.CONFIG, configPath, key)}',   config: getUI_CONFIG('${configPath}'),  selfpath: '${fromPath}',  partName: '${append.part.name}', pathArr: [${pathArrStr.slice(1)}] }" 
 >`;
         }
 
-        if (wrap_start) {
-          context.tpl = context.tpl + wrap_start;
-        }
 
 
         context.tpl = context.tpl + `
@@ -340,14 +341,15 @@ part_key="${append.partKey}"
 <slot-com :defs="slotContent" :attrs="{parts}"
            :binds="{key: '${key}', type: '${p.type}', partName: '${append.part.name}', pathArr: [${pathArrStr.slice(1)}], label: '${getLabel(append.CONFIG, configPath, key)}', selfpath: '${fromPath}', level:'${level}', parentlevel:'${level - 1}', basePath: '${basePath}', configPath: '${configPath}', process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
               name="prop_afterend"></slot-com>`;
+        if (wrap_tag) {
+          context.tpl = context.tpl + `</${wrap_tag}>`;
+        }
+
 
         if (wrap_end) {
           context.tpl = context.tpl + wrap_end;
         }
 
-        if (wrap_tag) {
-          context.tpl = context.tpl + `</${wrap_tag}>`;
-        }
 
       } else {
         //

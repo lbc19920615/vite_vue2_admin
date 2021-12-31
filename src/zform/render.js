@@ -55,6 +55,10 @@ export function configToComponent(comName, config, tpl, {
   compileData.CONFIG = config;
   compileData.partStr = renderCOM(config);
 
+  // console.log(compileData.partStr)
+  let str = Object.entries(compileData.partStr)[0][1]
+  // console.log(str)
+
   let t = globalThis.Twig.twig({
     // id: tplID,
     data: tpl,
