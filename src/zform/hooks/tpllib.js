@@ -292,7 +292,7 @@ ${attrStr(p, 'wrapAttrs')}>`;
         }
 
         if (wrap_start_tag) {
-          context.tpl = context.tpl + `<${wrap_start_tag}
+          context.tpl = context.tpl + `<${wrap_start_tag} key="${key}"
 :binds="{ key: '${key}',  label: '${getLabel(append.CONFIG, configPath, key)}',   config: getUI_CONFIG('${configPath}'),  selfpath: '${fromPath}',  partName: '${append.part.name}', pathArr: [${pathArrStr.slice(1)}] }" 
 >`;
         }

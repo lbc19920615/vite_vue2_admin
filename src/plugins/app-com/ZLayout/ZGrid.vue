@@ -11,10 +11,10 @@ export default {
       ZGridMixin
   ],
   created() {
-    // console.log(this.map)
+    // console.log(this.binds)
     // console.log(this.zgrid__getMeta(this.uuid))
     // console.log(this.gridControlConfig)
-    let clv = 'z-grid-' + ZY.rid(6)
+    let clv = 'z-grid-' + (this.key ??  ZY.rid(6))
     let cls = '.' + clv
     let cssv = {
       [cls]: {

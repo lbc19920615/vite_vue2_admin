@@ -6,6 +6,7 @@ let gridMetas = new Map();
  */
 export let ZGridMixin = {
   props: {
+    key: String,
     binds: {
       type: Object,
       default() {
