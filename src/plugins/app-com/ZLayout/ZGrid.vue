@@ -1,5 +1,5 @@
 <template>
-  <div class="z-grid"><slot></slot></div>
+  <div class="z-grid" :class="[cls]"><slot></slot></div>
 </template>
 
 <script>
@@ -10,13 +10,32 @@ export default {
   mixins: [
       ZGridMixin
   ],
-  mounted() {
+  created() {
     // console.log(this.map)
-    console.log(this.zgrid__getMeta(this.uuid))
+    // console.log(this.zgrid__getMeta(this.uuid))
+    // console.log(this.gridControlConfig)
+    let clv = 'z-grid-' + ZY.rid(6)
+    let cls = '.' + clv
+    let cssv = {
+      [cls]: {
+        display: 'flex'
+      },
+    }
+    this.cssobj = ZY_EXT.cssobj(cssv)
+    this.cls = clv
+    this.cssv = cssv
+
+    this.private_updateLayouts()
+
   },
   data() {
+
     return {
-      map: new Map()
+      cssobj: null,
+      map: new Map(),
+      cls: '',
+      cssv: {},
+      columnTotal: 24
     }
   },
   provide() {
@@ -31,6 +50,21 @@ export default {
           // console.log(map)
         }
       }
+    }
+  },
+  methods: {
+    private_updateLayouts() {
+      let cssv = this.cssv
+      let cls = this.cls
+      let layoutValues = this.gridControlConfig.layouts.map(v =>v.value)
+      layoutValues.forEach((layoutValue, index) => {
+        cssv[`.${cls} .z-grid-item:nth-child(${index + 1})`] = {
+          width: `calc(${layoutValue} / ${this.columnTotal} * 100%)`
+        }
+      })
+      // console.log(cssv)
+      // this.cssobj = ZY_EXT.cssobj(cssv)
+      this.cssobj.update()
     }
   }
 }

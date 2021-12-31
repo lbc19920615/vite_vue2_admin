@@ -1,5 +1,5 @@
 <template>
-  <div class="z-grid-item"><slot></slot></div>
+  <div class="z-grid-item" :style="styleObj"><slot></slot></div>
 </template>
 
 <script>
@@ -14,6 +14,13 @@ export default {
   created() {
     // console.log(this.ZGridIns)
     this.ZGridIns.register(this)
+  },
+  data() {
+    return {
+      styleObj: {
+        // width: `calc(3 / 24 * 100%)`
+      }
+    }
   }
 }
 </script>
