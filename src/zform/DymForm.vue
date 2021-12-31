@@ -1,4 +1,4 @@
-<style lang="scss">
+<style>
 .dym-form .el-form-item {
   display: flex;
   align-items: center;
