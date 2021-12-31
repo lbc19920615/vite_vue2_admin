@@ -15,11 +15,16 @@ import VueCompositionApi, * as Lib from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 globalThis.vueCompositionAPI = Lib
 // globalThis.vueDefineCompnent = Lib.defineComponent
+
+import {installZlayout} from "@/plugins/app-com/ZLayout";
+installZlayout(Vue)
+
 import  { initZForm } from '@/zform/init';
 initZForm(Vue, Vue)
 
 import {install} from "@/plugins/chinaArea";
 install(Vue)
+
 
 import {initRequestLib, context} from '@/plugins/z-request/index.js';
 let { request }  = initRequestLib({

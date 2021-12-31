@@ -112,7 +112,7 @@ function getZFormMeta(instanse) {
     return zFormMetas.get(appName)
   }
 }
-// globalThis.getZFormMeta = getZFormMeta
+globalThis.zFormMetas = zFormMetas
 globalThis.ZForm.getZFormMeta = getZFormMeta
 
 function getAppName(app, Vue) {

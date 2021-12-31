@@ -7,6 +7,7 @@
       <template v-if="showLabel(ui)" v-slot:label="">
         <div class="cm-filed__label">{{getLabel()}}</div>
       </template>
+<!--      {{widgetUUID}}-->
       <component :is="widgetUUID"></component>
       <div class="cm-filed__desc"><div>{{getDesc()}}</div></div>
     </el-form-item>
