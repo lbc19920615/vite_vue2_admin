@@ -9,6 +9,11 @@ export default {
   name: 'ZGridItem',
   mixins: [
     ZGridMixin
-  ]
+  ],
+  inject: ['ZGridIns'],
+  created() {
+    // console.log(this.ZGridIns)
+    this.ZGridIns.register(this)
+  }
 }
 </script>
