@@ -207,7 +207,7 @@ export function configToComponent(comName, config, tpl, {
         updateValue,
         getUI_CONFIG,
         fieldMixin(propConfig) {
-          console.log(propConfig)
+          // console.log(propConfig)
           let ui = ZY.lodash.get(propConfig, ['ui'], {})
           let widget = ZY.lodash.get(propConfig, ['ui', 'widget'], '')
           if (ui.custom) {

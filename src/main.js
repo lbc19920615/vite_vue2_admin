@@ -16,7 +16,7 @@ Vue.use(VueCompositionApi);
 globalThis.vueCompositionAPI = Lib
 // globalThis.vueDefineCompnent = Lib.defineComponent
 
-import {installZlayout} from "@/plugins/app-com/ZLayout";
+import {installZlayout} from "@/plugins/app-com/ZLayout/ZLayout";
 installZlayout(Vue)
 
 import  { initZForm } from '@/zform/init';

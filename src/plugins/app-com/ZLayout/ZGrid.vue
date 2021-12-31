@@ -3,7 +3,12 @@
 </template>
 
 <script>
+import {ZGridMixin} from "./ZGridMixin";
+
 export default {
-  name: 'ZGrid'
+  name: 'ZGrid',
+  mixins: [
+      ZGridMixin
+  ]
 }
 </script>
