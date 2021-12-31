@@ -18,8 +18,12 @@ export default {
     let cls = '.' + clv
     let cssv = {
       [cls]: {
-        display: 'flex'
+        display: 'flex',
+        ['flex-shrink']: 0
       },
+      [`${cls} > .z-grid-item:not(:first-child)`]: {
+        ['margin-left']: this.gutter
+      }
     }
     this.cssobj = ZY_EXT.cssobj(cssv)
     this.cls = clv
@@ -35,6 +39,7 @@ export default {
       map: new Map(),
       cls: '',
       cssv: {},
+      gutter: '0px',
       columnTotal: 24
     }
   },
@@ -56,10 +61,13 @@ export default {
     private_updateLayouts() {
       let cssv = this.cssv
       let cls = this.cls
+      let total = this.columnTotal
       let layoutValues = this.gridControlConfig.layouts.map(v =>v.value)
       layoutValues.forEach((layoutValue, index) => {
         cssv[`.${cls} > .z-grid-item:nth-child(${index + 1})`] = {
-          width: `calc(${layoutValue} / ${this.columnTotal} * 100%)`
+          // width: `calc(${layoutValue} / ${this.columnTotal} * 100%)`
+          width: `calc( (100% - (${total}/${layoutValue} - 1) * ${this.gutter}) / ${total} * ${layoutValue} );`
+
         }
       })
       // console.log(cssv)
