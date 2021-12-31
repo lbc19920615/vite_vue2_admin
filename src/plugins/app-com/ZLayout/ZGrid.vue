@@ -11,10 +11,10 @@ export default {
       ZGridMixin
   ],
   created() {
-    // console.log(this.binds)
+    // console.log(this.fieldKey)
     // console.log(this.zgrid__getMeta(this.uuid))
     // console.log(this.gridControlConfig)
-    let clv = 'z-grid-' + (this.key ??  ZY.rid(6))
+    let clv = 'z-grid-' + (this.fieldKey ??  ZY.rid(6))
     let cls = '.' + clv
     let cssv = {
       [cls]: {
@@ -58,7 +58,7 @@ export default {
       let cls = this.cls
       let layoutValues = this.gridControlConfig.layouts.map(v =>v.value)
       layoutValues.forEach((layoutValue, index) => {
-        cssv[`.${cls} .z-grid-item:nth-child(${index + 1})`] = {
+        cssv[`.${cls} > .z-grid-item:nth-child(${index + 1})`] = {
           width: `calc(${layoutValue} / ${this.columnTotal} * 100%)`
         }
       })
