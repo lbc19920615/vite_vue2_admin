@@ -1,3 +1,10 @@
+<style>
+.dym-form .el-form-item {
+  display: flex;
+  align-items: center;
+}
+</style>
+
 <template>
   <div class="dym-form">
 <!--    <el-button @click="destory">destory</el-button>-->
