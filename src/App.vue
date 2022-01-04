@@ -12,9 +12,6 @@
 </template>
 
 <script>
-// import FormA from "@/components/form-a.vue";
-// import FormLoader from "@/zform/FormLoader";
-// import {install} from '@/zform/coms'
 import {reqVueFile} from "@/apis/common";
 
 const STORE_NAME = 'test-vue2';
@@ -49,7 +46,7 @@ export default {
     console.log(this.url)
     let isStatic = this.url.searchParams.get('static');
     if (isStatic) {
-      await this.initPageFromStatic()
+      await this.initPageFromStatic(isStatic)
     } else {
       await this.initPageFromServer()
     }
@@ -84,12 +81,12 @@ export default {
      * 从服务器拉取代码
      * @returns {Promise<void>}
      */
-    async initPageFromStatic() {
+    async initPageFromStatic(isStatic) {
       let metas = this.private_getMetas()
 
       let res = await import('./static')
 
-      let vueFileStr = ZY.getHereDoc(res.getExampleVue())
+      let vueFileStr = ZY.getHereDoc(res.getExampleVue(isStatic))
 
       // console.log(vueFileStr)
       await this.private_parse(vueFileStr, metas)

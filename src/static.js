@@ -1,4 +1,39 @@
-export function getExampleVue() {
+let staticTpls = {
+  sub() {
+    /*
+<template>
+<dym-form v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
+
+</dym-form>
+</template>
+<script>
+const formComName = 'test111';
+const formTemplate = '#[[TPL_ID]]';
+const formDef = {type:'form',name:'form_DJZHVx',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['prop1','11']],class:['class1'],styleSheets:[]},properties:{field__GSM8XzbSEH:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},computedFun:'',rules:[],server:{field_name:'field__GSM8XzbSEH'},rules_json:'[]'},subform__k5am3cH13j:{type:'object',properties:{field__yRFpGDHbmO:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},server:{field_name:'field__yRFpGDHbmO'}}}}},metas:{form_data:'json_a4b58'}},computed:{}};
+const formMetas =[[metas]];
+let zformCommon = globalThis.createZformCommon({formDef, formComName, formMetas});
+let def = {
+    template: formTemplate,
+    mixins: [
+        zformCommon
+    ]
+}
+globalThis[callback]({comName: formComName, def});
+</script>
+  */
+  }
+}
+
+/**
+ * 获取测试文件
+ * @param staticFlg
+ * @returns {(function())|*}
+ */
+export function getExampleVue(staticFlg = '') {
+  let keys = Object.keys(staticTpls)
+  if (keys.includes(staticFlg)) {
+      return staticTpls[staticFlg]
+  }
   return function () {/*
 <template>
 <dym-form v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
