@@ -216,6 +216,13 @@ export function configToFormComponent(comName, config, tpl, {
         return -1
       }
 
+      function getIntVal(v) {
+        if (Array.isArray(v)) {
+          return v[0]
+        }
+        return undefined
+      }
+
       let comIns = {
         config,
         exportCtx,
@@ -225,6 +232,7 @@ export function configToFormComponent(comName, config, tpl, {
         updateValue,
         getObjDeep,
         getUI_CONFIG,
+        getIntVal,
         fieldMixin(propConfig) {
           // console.log(propConfig)
           let ui = ZY.lodash.get(propConfig, ['ui'], {})

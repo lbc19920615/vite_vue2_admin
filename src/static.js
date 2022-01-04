@@ -5,7 +5,7 @@ let staticTpls = {
 <dym-form v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
 
 <template v-slot:object_beforebegin="scope">
-<div     >测试</div>
+<div    v-if="scope.level > 1" >测试 {{scope}}</div>
 </template>
 
 </dym-form>
