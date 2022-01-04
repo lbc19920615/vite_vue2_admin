@@ -1,7 +1,7 @@
 <style>
 .dym-form .el-form-item {
-  display: flex;
-  align-items: center;
+  /*display: flex;*/
+  /*align-items: center;*/
 }
 </style>
 
