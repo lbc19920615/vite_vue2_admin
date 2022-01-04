@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import {configToComponent} from "./render.js";
+import {configToFormComponent} from "./render.js";
 import {getCachedVue} from "./glo";
 
 const COM_PREFIX = 'dym-form__';
@@ -72,14 +72,13 @@ export default {
 
     async function init(config) {
       // console.log(formDef)
-      // console.log(configToComponent)
       // let html = document.getElementById(props.varName)?.innerHTML ?? '';
       let html = globalThis[props.varName]
       if (props.debug) {
         config.debug = true
       }
       // console.log(config)
-      let com = configToComponent(comName,
+      let com = configToFormComponent(comName,
           config,
           html,
           {

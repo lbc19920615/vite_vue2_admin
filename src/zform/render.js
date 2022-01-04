@@ -1,4 +1,3 @@
-import {provide, reactive, getCurrentInstance, watch} from "@vue/composition-api";
 import {renderForm} from "./hooks/tpllib";
 
 function renderCOM(formCONFIG) {
@@ -46,10 +45,21 @@ function flattenObject(ob) {
   return toReturn;
 }
 
-export function configToComponent(comName, config, tpl, {
+/**
+ * 配置转变为form组件
+ * @param comName
+ * @param config
+ * @param tpl
+ * @param outerCtx
+ * @param outerProps
+ * @returns {propConfig|{updateValue: updateValue, slotContent: (*|{default: []}), parts: {}, fieldMixin(*): (*), getUI_CONFIG: (function(*): *), config, registerWatchHandle: registerWatchHandle, exportCtx: {submit(*): Promise<*>, getMetas(): *, getRawData(*): *}}|*|{template: *, methods: {getRef(*): Vue | Element | (Vue | Element)[]}, name, setup(*, *): {updateValue: updateValue, slotContent: (*|{default: []}), parts: {}, fieldMixin(*): (*), getUI_CONFIG: (function(*): *), config, registerWatchHandle: registerWatchHandle, exportCtx: {submit(*): Promise<*>, getMetas(): *, getRawData(*): *}}, props: {modelValue: null, render: null}}|Promise<unknown>|{ui}|Vue|Element|(Vue | Element)[]|{template: `<div>${string|*}</div>`, data(): {ui: *}}}
+ */
+export function configToFormComponent(comName, config, tpl, {
   outerCtx,
   outerProps
 } = {}) {
+  const {provide, reactive, getCurrentInstance, watch} = globalThis.vueCompositionAPI
+
   let compileData = {}
 
   compileData.CONFIG = config;
