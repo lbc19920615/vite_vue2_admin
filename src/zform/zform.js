@@ -59,7 +59,7 @@ export let createZformCommon = function ({formDef, formMetas}) {
     },
     methods: {
       callEvent(name, scope, e) {
-        console.log(this.zformLoader)
+        // console.log(this.zformLoader)
         this.zformLoader.emit(name, {
           scope,
           e

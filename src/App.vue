@@ -6,7 +6,7 @@
     </div>
     <div class="page" v-if="page.inited">
 <!--      <form-b :debug="true"  @form-submit="onSubmitForm"></form-b>-->
-      <form-loader :name="res.comName" :listener="listener" @form-submit="onSubmitForm"></form-loader>
+      <form-loader :name="res.comName" :listener="listener" ></form-loader>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@ export default {
       listener: {
         ['form-submit']: function (args) {
           console.log(self, args)
+          self.onSubmitForm(args)
         }
       },
       url:  new URL(location.href),
@@ -130,9 +131,9 @@ export default {
       if (isValid) {
         let model = await ctx.getRawData(partName);
         let metas = ctx.getMetas();
-        // console.log(model, metas)
+        console.log(model, metas)
         globalThis.Req.post('/api/zy-boot/json/addJson', {
-          tableName: metas.form_data,
+          tableName: metas.tableName,
           model: model
         })
       }
@@ -151,9 +152,9 @@ export default {
     //     }
     //   }
     // },
-    destory() {
-      this.page.inited = false
-    }
+    // destory() {
+    //   this.page.inited = false
+    // }
   }
 }
 </script>
