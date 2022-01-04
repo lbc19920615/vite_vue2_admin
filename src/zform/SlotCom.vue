@@ -39,7 +39,7 @@ export default  {
       // console.log('sdsdsds', props.binds)
       slotContents = props.defs[props.name](props.binds)
     }
-    // console.log(props.name, slotContents)
+    // console.log(props.binds, slotContents)
     return () => {
       // console.log(slotContents)
       return h('div', {}, slotContents)

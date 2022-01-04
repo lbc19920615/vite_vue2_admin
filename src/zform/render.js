@@ -208,6 +208,13 @@ export function configToFormComponent(comName, config, tpl, {
       }
 
 
+      function getObjDeep(v) {
+        // console.log('getObjDeep', v)
+        if (Array.isArray(v)) {
+          return v.length
+        }
+        return -1
+      }
 
       let comIns = {
         config,
@@ -216,6 +223,7 @@ export function configToFormComponent(comName, config, tpl, {
         registerWatchHandle,
         slotContent,
         updateValue,
+        getObjDeep,
         getUI_CONFIG,
         fieldMixin(propConfig) {
           // console.log(propConfig)

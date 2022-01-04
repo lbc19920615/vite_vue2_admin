@@ -4,12 +4,16 @@ let staticTpls = {
 <template>
 <dym-form v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
 
+<template v-slot:object_beforebegin="scope">
+<div     >测试</div>
+</template>
+
 </dym-form>
 </template>
 <script>
 const formComName = 'test111';
 const formTemplate = '#[[TPL_ID]]';
-const formDef = {type:'form',name:'form_DJZHVx',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['prop1','11']],class:['class1'],styleSheets:[]},properties:{field__GSM8XzbSEH:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},computedFun:'',rules:[],server:{field_name:'field__GSM8XzbSEH'},rules_json:'[]'},subform__k5am3cH13j:{type:'object',properties:{field__yRFpGDHbmO:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},server:{field_name:'field__yRFpGDHbmO'}}}}},metas:{form_data:'json_a4b58'}},computed:{}};
+const formDef = {type:'form',name:'form_DJZHVx',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['prop1','11']],class:['class1'],styleSheets:[]},properties:{field__GSM8XzbSEH:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},computedFun:'',rules:[],server:{field_name:'field__GSM8XzbSEH'},rules_json:'[]'},subform__LXsoxT6TA_:{type:'object',properties:{field__yRFpGDHbmO:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},server:{field_name:'field__yRFpGDHbmO'}}}}},metas:{form_data:'json_a4b58'}},computed:{}};
 const formMetas =[[metas]];
 let zformCommon = globalThis.createZformCommon({formDef, formComName, formMetas});
 let def = {

@@ -171,13 +171,13 @@ export function renderForm(p, basePath, configPath, append = {}) {
 
       context.tpl = context.tpl + `
 <slot-com :defs="slotContent" :attrs="{parts}"
-           :binds="{key: '${key}', partName: '${append.part.name}', config: getUI_CONFIG('${configPath}'), pathArr: [${pathArrStr.slice(1)}], configPath: '${configPath}', label: '${getLabel(append.CONFIG, configPath, key)}', selfpath: '${fromPath}',  process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
+           :binds="{key: '${key}', partName: '${append.part.name}', config: getUI_CONFIG('${configPath}'), deep: getObjDeep([${pathArrStr.slice(1)}]), pathArr: [${pathArrStr.slice(1)}], configPath: '${configPath}', label: '${getLabel(append.CONFIG, configPath, key)}', selfpath: '${fromPath}',  process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
             name="object_beforebegin"></slot-com>            
-<${obj_tag} class="level_${level} z-form__object ${buildCls(p)}" ${attrStr(p)} :binds="{ pathArr: [${pathArrStr.slice(1)}] }"
+<${obj_tag} class="level_${level} z-form__object ${buildCls(p)}" :class="['z-form__object-' + getObjDeep([${pathArrStr.slice(1)}])]" ${attrStr(p)} :binds="{ pathArr: [${pathArrStr.slice(1)}] }"
 v-if="${basePath}"
 >
 <slot-com :defs="slotContent" :attrs="{parts}"
-           :binds="{key: '${key}', partName: '${append.part.name}', config: getUI_CONFIG('${configPath}'), pathArr: [${pathArrStr.slice(1)}], configPath: '${configPath}', label: '${getLabel(append.CONFIG, configPath, key)}', selfpath: '${fromPath}',  process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
+           :binds="{key: '${key}', partName: '${append.part.name}', config: getUI_CONFIG('${configPath}'), deep: getObjDeep([${pathArrStr.slice(1)}]), pathArr: [${pathArrStr.slice(1)}], configPath: '${configPath}', label: '${getLabel(append.CONFIG, configPath, key)}', selfpath: '${fromPath}',  process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
             name="object_afterbegin"></slot-com>    
 `;
       for (const [ key, value ] of Object.entries(p.properties)) {
@@ -187,11 +187,11 @@ v-if="${basePath}"
       }
       context.tpl = context.tpl + `
 <slot-com :defs="slotContent" :attrs="{parts}"
-           :binds="{key: '${key}', partName: '${append.part.name}', configPath: '${configPath}', selfpath: '${fromPath}',  pathArr: [${pathArrStr.slice(1)}], process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
+           :binds="{key: '${key}', partName: '${append.part.name}', configPath: '${configPath}', selfpath: '${fromPath}', deep: getObjDeep([${pathArrStr.slice(1)}]),  pathArr: [${pathArrStr.slice(1)}], process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
             name="object_beforeend"></slot-com>
 </${obj_tag}>
 <slot-com :defs="slotContent" :attrs="{parts}"
-           :binds="{key: '${key}', partName: '${append.part.name}', configPath: '${configPath}', selfpath: '${fromPath}',  pathArr: [${pathArrStr.slice(1)}], process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
+           :binds="{key: '${key}', partName: '${append.part.name}', configPath: '${configPath}', selfpath: '${fromPath}', deep: getObjDeep([${pathArrStr.slice(1)}]),  pathArr: [${pathArrStr.slice(1)}], process: '${append.CONFIG.process}', parts: parts, BASE_PATH:'${append.BASE_PATH}' }"
             name="object_afterend"></slot-com>`;
 
       if (wrap_end) {
