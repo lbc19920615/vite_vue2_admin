@@ -1,4 +1,5 @@
 import {renderForm} from "./hooks/tpllib";
+import {createFormModel} from "./form";
 
 function renderCOM(formCONFIG) {
   let partStr = {};
@@ -106,7 +107,7 @@ export function configToFormComponent(comName, config, tpl, {
       function initPart(partDef) {
         let cachedModel = '{}';
         let rowDef = partDef.def;
-        let obj = ZY.formModel.create(rowDef)
+        let obj = createFormModel(rowDef)
         // console.log(obj, rowDef)
         let model = reactive(obj);
         let modelLocks = false;
