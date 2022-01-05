@@ -9,8 +9,10 @@
 ### index.html
 
 ```html
+
 <script src="<%= process.env.VUE_APP_RES %>/twig.min.js"></script>
 <script src="<%= process.env.VUE_APP_RES %>/init2.js"></script>
+<!-- 可选 -->
 <script src="<%= process.env.VUE_APP_RES %>/webcomponentsjs/webcomponents-loader.js"></script>
 <script async src="<%= process.env.VUE_APP_RES %>/es-module-shims.js"></script>
 ```
@@ -22,7 +24,8 @@
 import VueCompositionApi from "@vue/composition-api";
 Vue.use(VueCompositionApi);
 import  { initZForm } from '@/zform/init';
-Vue.use(initZForm);
+// vue2 app 是Vue          vue3 app 是Vue.createApp()
+initZForm(App, Vue)
 ```
 
 ### 页面调用
