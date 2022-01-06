@@ -5,7 +5,7 @@ import {registerCachedVue, setZFormMeta} from "./glo";
 
 
 globalThis.ZForm = {}
-globalThis.ZForm.version = '0.3.0'
+globalThis.ZForm.version = '0.6.0'
 globalThis.ZForm.document = document
 let zFormMetas = new Map();
 let vueVersion = 0;
@@ -81,7 +81,7 @@ function initSfc({app, Vue} = {}) {
       let {comName} = await createDef(scriptStr)
 
 
-      console.log(scriptStr)
+      // console.log(scriptStr)
 
       // let res = await ZY.importJsStr(scriptStr)
       // ZY.DOM.initTemplate(templateId, globalThis.document, {

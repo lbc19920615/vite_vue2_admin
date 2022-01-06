@@ -52,7 +52,11 @@ function formSchemaToObject(formDef, obj) {
     Object.entries(formDef.properties).forEach(([ key, formDefProp ]) => {
       // console.log('formDefProp', formDefProp)
       if (formDefProp.type === 'array') {
+        // console.log(formDefProp)
         obj[key] = [ ];
+        if (formDefProp.items && formDefProp.items.type === 'object') {
+          obj[key] = [{}];
+        }
       }
       else if (formDefProp.type === 'object') {
         obj[key] = {};
