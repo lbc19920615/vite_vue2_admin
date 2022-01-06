@@ -108,6 +108,12 @@ export function configToFormComponent(comName, config, tpl, {
       let lodash = ZY.lodash;
 
       let partName = outerProps.partName;
+
+      // 兼容老版本
+      if (!partName && Array.isArray(compileData.CONFIG.parts) && compileData.CONFIG.parts[0]) {
+        partName = compileData.CONFIG.parts[0].name
+      }
+
       let uuid = PREFIX + ZY.rid(10);
 
       function getRef(partName) {
