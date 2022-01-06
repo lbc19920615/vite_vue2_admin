@@ -5,6 +5,7 @@ import {registerCachedVue, setZFormMeta} from "./glo";
 
 
 globalThis.ZForm = {}
+globalThis.ZForm.document = document
 let zFormMetas = new Map();
 let vueVersion = 0;
 
@@ -17,6 +18,7 @@ function initSfc({app, Vue} = {}) {
   }
 
   async function createDef(h = '') {
+    let document = globalThis.ZForm.document
     return new Promise(resolve => {
       let id = 'fun__' + ZY.rid();
       let script = document.createElement('script');

@@ -18,7 +18,8 @@ export default {
   },
   data() {
     return {
-      comName: ''
+      comName: '',
+      curIns: {}
     }
   },
   watch: {
@@ -33,6 +34,9 @@ export default {
     let self = this;
     return {
       zformLoader: {
+        registerCur(ctx) {
+          self.curIns = ctx
+        },
         emit(...args) {
           // console.log(...args)
           if (self.listener[args[0]]) {
@@ -41,6 +45,14 @@ export default {
           self.$emit(...args)
         }
       }
+    }
+  },
+  methods: {
+    getCurForm() {
+      if (this.curIns) {
+        return this.curIns.exportCtx
+      }
+      return null
     }
   }
 }

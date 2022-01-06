@@ -2,10 +2,14 @@ let staticTpls = {
   sub() {
     /*
 <template>
-<dym-form v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
+<dym-form :part-name="partName" v-if="inited" :debug="debug" :metas="formMetas" :config="formDef">
 
 <template v-slot:object_beforebegin="scope">
 <div     v-if='scope.level > 1' >测试</div>
+</template>
+
+<template v-slot:form_afterend="scope">
+
 </template>
 
 </dym-form>

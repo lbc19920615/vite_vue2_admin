@@ -41,6 +41,7 @@ export default {
         return {}
       },
     },
+    partName: String,
     varName: {
       type: String,
       default: 'Z_FORM_TPL'
@@ -83,7 +84,8 @@ export default {
           html,
           {
             outerCtx,
-            outerProps: props
+            partName: props.partName,
+            outerProps: props,
           }
       )
       meta.CustomDymComponent.register(com);

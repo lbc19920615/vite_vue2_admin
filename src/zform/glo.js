@@ -25,3 +25,15 @@ export function getZFormMeta(instanse) {
 export function setZFormMeta(key, value) {
   zFormMetas.set(key, value)
 }
+
+let zFormInsMap = new Map();
+
+/**
+ *
+ * @param key
+ * @param value
+ */
+export function setZFormInsMap(key, value) {
+  zFormInsMap.set(key, value)
+}
+

@@ -8,6 +8,7 @@ import DymForm from "./DymForm.vue";
  */
 export let createZformCommon = function ({formDef, formMetas}) {
   // console.log(formDef)
+  let partName = formDef.name
   return {
     components: {DymForm},
     props: {
@@ -24,6 +25,7 @@ export let createZformCommon = function ({formDef, formMetas}) {
       return {
         formMetas,
         inited: false,
+        partName,
         formDef: {
           parts: [
             formDef

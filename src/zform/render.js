@@ -57,10 +57,12 @@ function flattenObject(ob) {
  */
 export function configToFormComponent(comName, config, tpl, {
   outerCtx,
+  // partName,
   outerProps
 } = {}) {
-  const {provide, reactive, getCurrentInstance, watch} = globalThis.vueCompositionAPI
+  const {provide, reactive, getCurrentInstance, watch, inject} = globalThis.vueCompositionAPI
 
+  let partName = outerProps.partName
   let compileData = {}
 
   compileData.CONFIG = config;
@@ -70,12 +72,17 @@ export function configToFormComponent(comName, config, tpl, {
   let str = Object.entries(compileData.partStr)[0][1]
   // console.log(str)
 
+  if (!globalThis.Twig) {
+    console.error('need Twig.js')
+  }
+
   let t = globalThis.Twig.twig({
     // id: tplID,
     data: tpl,
     allowInlineIncludes: true
   });
   let html = t.render(compileData)
+  const PREFIX = 'comformscr2__'
 
   // console.log(html)
   return {
@@ -85,18 +92,26 @@ export function configToFormComponent(comName, config, tpl, {
       modelValue: null,
       render: null
     },
+    inject: ['zformLoader'],
     methods: {
       getRef(partName) {
-        return this.$refs['comformscr2__' + partName]
+        return this.$refs[PREFIX + partName]
       }
+    },
+    mounted() {
+      // console.log(this.zformLoader)
+      this.zformLoader.registerCur(this)
     },
     setup(props, ctx) {
       let instanse = getCurrentInstance()
       let JSON5 = ZY.JSON5;
       let lodash = ZY.lodash;
 
+      let partName = outerProps.partName;
+      let uuid = PREFIX + ZY.rid(10);
+
       function getRef(partName) {
-        return instanse.refs['comformscr2__' + partName]
+        return instanse.refs[PREFIX + partName]
       }
 
       let watchHandleMap = new Map();
@@ -184,10 +199,9 @@ export function configToFormComponent(comName, config, tpl, {
       let exportCtx = {
         /**
          * 提交
-         * @param partName
          * @returns {Promise<unknown>}
          */
-        async submit(partName) {
+        async submit() {
           let self = this;
           return new Promise(resolve => {
             let ele = getRef(partName);
@@ -197,7 +211,7 @@ export function configToFormComponent(comName, config, tpl, {
             });
           })
         },
-        getRawData(partName) {
+        getRawData() {
           let observed =  parts[partName].model
           // console.log(observed)
           return ZY.structuralClone(observed)
@@ -224,6 +238,7 @@ export function configToFormComponent(comName, config, tpl, {
       }
 
       let comIns = {
+        uuid,
         config,
         exportCtx,
         parts,

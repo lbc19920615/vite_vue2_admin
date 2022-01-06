@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div>
-<!--      <el-button type="primary" @click="loadFile">加载</el-button>-->
-<!--      <el-button type="danger" @click="destory">销毁</el-button>-->
-    </div>
     <div class="page" v-if="page.inited">
-<!--      <form-b :debug="true"  @form-submit="onSubmitForm"></form-b>-->
-      <form-loader :name="res.comName" :listener="listener" ></form-loader>
+      <form-loader
+          ref="formLoader"
+          :name="res.comName" :listener="listener" ></form-loader>
+    </div>
+    <div>
+      <el-button @click="submitForm('formLoader', $event)">提交</el-button>
     </div>
   </div>
 </template>
@@ -123,10 +123,10 @@ export default {
       this.page.inited = true
     },
     async onSubmitForm({scope}) {
-      let {ctx, partName} = scope;
-      let [isValid, errors] = await ctx.submit(partName)
+      let {ctx} = scope;
+      let [isValid, errors] = await ctx.submit()
       if (isValid) {
-        let model = await ctx.getRawData(partName);
+        let model = await ctx.getRawData();
         let metas = ctx.getMetas();
         console.log(model, metas)
         globalThis.Req.post('/api/zy-boot/json/addJson', {
@@ -135,6 +135,17 @@ export default {
         })
       }
     },
+    async submitForm(flg = 'formLoader') {
+      // console.log(this.$refs.formLoader)
+      let curForm = this.$refs[flg].getCurForm()
+      if (curForm) {
+        this.onSubmitForm({
+          scope: {
+            ctx: curForm
+          }
+        })
+      }
+    }
     // async loadFile() {
     //   let JSON5 = ZY.JSON5;
     //   let obj = await ZY_EXT.fileOpenJSON5();
