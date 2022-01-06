@@ -5,7 +5,7 @@ import {registerCachedVue, setZFormMeta} from "./glo";
 
 
 globalThis.ZForm = {}
-globalThis.ZForm.version = '0.6.0'
+globalThis.ZForm.version = '0.6.1'
 globalThis.ZForm.document = document
 let zFormMetas = new Map();
 let vueVersion = 0;

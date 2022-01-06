@@ -42,7 +42,10 @@ export default  {
     // console.log(props.binds, slotContents)
     return () => {
       // console.log(slotContents)
-      return h('div', {}, slotContents)
+      if (Array.isArray(slotContents) && slotContents.length > 0) {
+        return h('div', {}, slotContents)
+      }
+      return null
       // return slotContents
     }
   }
