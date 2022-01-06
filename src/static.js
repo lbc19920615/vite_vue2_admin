@@ -8,17 +8,13 @@ let staticTpls = {
 <div     v-if='scope.level > 1' >测试</div>
 </template>
 
-<template v-slot:form_afterend="scope">
-
-</template>
-
 </dym-form>
 </template>
 <script>
 const formName = 'test111'
 const formComName = 'dym-form-field__test111';
 const formTemplate = '#[[TPL_ID]]';
-const formDef = {type:'form',name:'form_DJZHVx',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['prop1','11']],class:['class1'],styleSheets:[]},properties:{field__GSM8XzbSEH:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},computedFun:'',rules:[],server:{field_name:'field__GSM8XzbSEH'},rules_json:'[]'},obj__n_qD5pqVtM:{type:'object',properties:{field__yRFpGDHbmO:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},server:{field_name:'field__yRFpGDHbmO'}}}},arr__icPjA0C3MZ:{type:'array',items:{type:'object',properties:{obj__RjBccgRPm2:{type:'object',properties:{field__zDWq1MalB4:{type:'string',ui:{widget:'CusDateTimePicker',label:'时间日期选择',widgetConfig:{type:'datetime',valueFormat:'YYYY-MM-DD HH:mm:ss'}},sub_type:'datetime',server:{field_name:'field__zDWq1MalB4'}}},computedFun:'',ui:{widgetConfig:{}},rules:[],server:{},rules_json:'[]'}},computedFun:'',ui:{widgetConfig:{}},rules:[],server:{},rules_json:'[]'}},field__YLrZzmt_t9:{type:'string',ui:{widget:'CusInput',label:'单行文本',widgetConfig:{}},server:{field_name:'field__YLrZzmt_t9'}},arr__rTyZMPIvxw:{type:'array',items:{type:'object',properties:{}}}},metas:{form_data:'json_a4b58'}},computed:{}};
+const formDef = {type:'form',name:'form_DJZHVx',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['prop1','11']],class:['class1'],styleSheets:[]},properties:{field__GSM8XzbSEH:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},computedFun:'',rules:[],server:{field_name:'field__GSM8XzbSEH'},rules_json:'[]'},obj__XNH1YtHHj9:{type:'object',properties:{field__yRFpGDHbmO:{type:'string',INIT_CONFIG:{type:'string'},ui:{widget:'CusInput',label:'多行文本',widgetConfig:{type:'textarea'}},server:{field_name:'field__yRFpGDHbmO'}}}},arr__lkMLx_atxG:{type:'array',items:{type:'object',properties:{obj__R1ismNG9KC:{type:'object',properties:{field__zDWq1MalB4:{type:'string',ui:{widget:'CusDateTimePicker',label:'时间日期选择',widgetConfig:{type:'datetime',valueFormat:'YYYY-MM-DD HH:mm:ss'}},sub_type:'datetime',server:{field_name:'field__zDWq1MalB4'}}},computedFun:'',ui:{widgetConfig:{}},rules:[],server:{},rules_json:'[]'}},computedFun:'',ui:{widgetConfig:{}},rules:[],server:{},rules_json:'[]'}},field__YLrZzmt_t9:{type:'string',ui:{widget:'CusInput',label:'单行文本',widgetConfig:{}},server:{field_name:'field__YLrZzmt_t9'}},arr__MTzNoGzx8e:{type:'array',items:{type:'object',properties:{}}}},metas:{form_data:'json_a4b58'}},computed:{}};
 const formMetas =[[metas]];
 let zformCommon = globalThis.createZformCommon({formDef, formComName, formMetas});
 let def = {
